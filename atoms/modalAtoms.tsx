@@ -10,6 +10,16 @@ export const postState = atom({
   key: "postState",
   default: {},
 });
+
+export const serverName = atom({
+  key: "serverName",
+  default: "",
+});
+export const setParam = atom({
+  key: "setParam",
+  default: {},
+});
+
 export default function RecoilContextProvider({
   children,
 }: {

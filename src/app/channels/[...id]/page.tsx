@@ -14,9 +14,15 @@ import { Icon } from "@iconify/react";
 import { File } from "buffer";
 import { Dialog, Transition } from "@headlessui/react";
 import { FormatInputPathObject } from "path";
-import { postState, sessionState } from "../../../../atoms/modalAtoms";
+import {
+  postState,
+  serverName,
+  sessionState,
+  setParam,
+} from "../../../../atoms/modalAtoms";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
+import { GetServerSideProps } from "next";
 import {
   addDoc,
   collection,
@@ -33,9 +39,23 @@ import { data } from "autoprefixer";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { Type } from "typescript";
 import NavbarServer from "@/components/NavbarServer";
+import SecondbarServer from "@/components/SecondbarServer";
 
 function page({ params }: { params: any }) {
-  console.log(JSON.stringify(params.id));
+  // console.log(url);
+  // console.log(JSON.stringify(params.id));
+  const [urlParams, setUrlParams] = useRecoilState<Employee>(setParam);
+  setUrlParams(params);
+  // console.log(params.id);
+  // const url = window.location.pathname.concat("aswa");
+  const url = window.location.pathname;
+
+  // console.log(url);
+
+  // const searchParams = new URLSearchParams(window.location.search);
+  // searchParams.set("model", "model  3");
+  // console.log(searchParams.toString());
+  const [serverNames, setServerNames] = useRecoilState<string>(serverName);
 
   const photoRef = useRef<HTMLInputElement | null>(null);
   let [isOpen, setIsOpen] = useState<boolean>(false);
@@ -148,7 +168,7 @@ function page({ params }: { params: any }) {
         {Object.keys(post).length !== 0 &&
           post.map(
             (item: any, index: number) => (
-              <NavbarServer key={index} post={item} />
+              <NavbarServer key={index} post={item} id={item?.uid} />
             )
             // console.log(item)
           )}
@@ -329,8 +349,14 @@ function page({ params }: { params: any }) {
           </Dialog>
         </Transition>
       </div>
+      <SecondbarServer serverName={serverNames} />
     </div>
   );
 }
 
 export default page;
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   const url = context;
+//   return { props: { url: url } };
+// };
