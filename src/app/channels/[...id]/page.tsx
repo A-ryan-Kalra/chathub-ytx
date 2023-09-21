@@ -35,7 +35,7 @@ import { Type } from "typescript";
 import NavbarServer from "@/components/NavbarServer";
 
 function page({ params }: { params: any }) {
-  // console.log(JSON.stringify(params.id));
+  console.log(JSON.stringify(params.id));
 
   const photoRef = useRef<HTMLInputElement | null>(null);
   let [isOpen, setIsOpen] = useState<boolean>(false);
