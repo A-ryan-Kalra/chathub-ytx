@@ -133,8 +133,8 @@ function page({ params }: { params: any }) {
     }
 
     // console.log(urlParams);
-    setUrlParams(params.id[0]);
   }, [urlParams]);
+  setUrlParams(params.id[0]);
 
   useEffect(
     () =>
