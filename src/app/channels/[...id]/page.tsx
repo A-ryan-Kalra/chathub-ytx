@@ -40,15 +40,15 @@ import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { Type } from "typescript";
 import NavbarServer from "@/components/NavbarServer";
 import SecondbarServer from "@/components/SecondbarServer";
+import Link from "next/link";
 
 function page({ params }: { params: any }) {
   // console.log(url);
   // console.log(JSON.stringify(params.id));
-  const [urlParams, setUrlParams] = useRecoilState<Employee>(setParam);
-  setUrlParams(params);
+  const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
   // console.log(params.id);
   // const url = window.location.pathname.concat("aswa");
-  const url = window.location.pathname;
+  // const url = window.location.pathname;
 
   // console.log(url);
 
@@ -87,7 +87,7 @@ function page({ params }: { params: any }) {
   }
   // console.log(selectedFile);
   const [loading, setLoading] = useState<boolean>(false);
-
+  // console.log(session);
   const sendPost = async () => {
     setLoading(true);
     const docRef: Employee = await addDoc(collection(database, "Users"), {
@@ -127,10 +127,14 @@ function page({ params }: { params: any }) {
     const token: object = JSON.parse(sessionStorage.getItem("token") || "{}");
     let serPost: object = JSON.parse(sessionStorage.getItem("post") || "{}");
     setPost(serPost);
+    setSession(token);
     if (Object.keys(token).length === 0) {
       router.push("/");
     }
-  }, []);
+
+    // console.log(urlParams);
+    setUrlParams(params.id[0]);
+  }, [urlParams]);
 
   useEffect(
     () =>
@@ -152,21 +156,23 @@ function page({ params }: { params: any }) {
   );
 
   return (
-    <div className="min-h-screen flex bg-[#313338] fixed inset-0">
-      <div className="min-h-screen  bg-[#1F1E22] flex-col flex gap-2 w-[75px] ">
-        <div className=" cursor-pointer ml-0 flex mt-3 mx-auto  group">
-          <div className="relative   h-full  w-1 flex  mr-2 ">
+    <div className="min-h-screen flex fixed inset-0">
+      <div className="min-h-screen  bg-[#1F1E22] flex-col flex gap-2 w-[80px] overflow-y-auto">
+        <Link
+          href={"/channels/@me"}
+          className=" cursor-pointer ml-0 flex mt-3 mx-auto  group"
+        >
+          <div className="relative   h-full  w-1 flex  mr-[10px] ">
             <div className="bg-white h-full duration-200 transition-all transform ease-in origin-center scale-y-[16%] group-hover:scale-y-[40%] my-auto rounded-r-[100%] w-2"></div>
           </div>
           <div className="  hover:bg-[#5864F3] cursor-pointer hover:rounded-2xl  transition bg-[#303238]  mx-auto rounded-full flex items-center w-[50px] h-[50px] p-2">
             <img src="/discordnew.png" className="w-[45px] p-1" alt="" />
           </div>
-        </div>
-
-        <hr className="w-[50%]   mx-auto" />
+        </Link>
+        <hr className="min-w-[50%]   mx-auto" />
 
         {Object.keys(post).length !== 0 &&
-          post.map(
+          post?.map(
             (item: any, index: number) => (
               <NavbarServer key={index} post={item} id={item?.uid} />
             )
@@ -174,7 +180,7 @@ function page({ params }: { params: any }) {
           )}
 
         <div
-          className="  cursor-pointer w-[50px] items-center rounded-full bg-[#313338] transform transition ease-out hover:bg-[#56A65A] flex hover:rounded-2xl mx-auto h-[50px] justify-center group"
+          className="relative -left-[2px] cursor-pointer w-[50px] items-center rounded-full bg-[#313338] transform transition ease-out hover:bg-[#56A65A] flex hover:rounded-2xl mx-auto h-[50px] justify-center group"
           onClick={() => {
             {
               setLoading(false);
@@ -349,7 +355,19 @@ function page({ params }: { params: any }) {
           </Dialog>
         </Transition>
       </div>
-      <SecondbarServer serverName={serverNames} />
+      <div className="min-h-screen bg-[#2A2D30] w-[240px]">
+        <div className="flex-col flex">
+          {Object.keys(post).length !== 0 &&
+            post.map((item: any, index: number) => (
+              <SecondbarServer
+                serverName={serverNames}
+                post={item}
+                id={item?.uid}
+                key={index}
+              />
+            ))}
+        </div>
+      </div>
     </div>
   );
 }

@@ -17,7 +17,12 @@ export const serverName = atom({
 });
 export const setParam = atom({
   key: "setParam",
-  default: {},
+  default: "",
+});
+
+export const setParamsUrl = atom({
+  key: "setParamsUrl",
+  default: "",
 });
 
 export default function RecoilContextProvider({
