@@ -20,6 +20,7 @@ import {
   serverName,
   sessionState,
   setParam,
+  setParam1,
 } from "../../../../atoms/modalAtoms";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
@@ -43,11 +44,12 @@ import NavbarServer from "@/components/NavbarServer";
 import SecondbarServer from "@/components/SecondbarServer";
 import Link from "next/link";
 
-function page({ params }: { params: any }) {
+function page({ params }: { params: Employee }) {
   // console.log(url);
   // console.log(JSON.stringify(params.id));
-  const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
-  // console.log(params.id);
+  const [urlParams, setUrlParams] = useRecoilState<string>(setParam || "");
+  const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
+  console.log(params);
   // const url = window.location.pathname.concat("aswa");
   // const url = window.location.pathname;
 
@@ -135,7 +137,10 @@ function page({ params }: { params: any }) {
 
     // console.log(urlParams);
   }, [urlParams]);
-  setUrlParams(params.id[0]);
+  if (params.id !== undefined) {
+    setUrlParams(params?.id[0]);
+    setUrlParams1(params?.id[1]);
+  }
   const [channelNameState, setChannelNameState] =
     useRecoilState<Employee[]>(channelName);
 

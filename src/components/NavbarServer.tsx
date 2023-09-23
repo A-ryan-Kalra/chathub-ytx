@@ -3,7 +3,7 @@ import { Employee } from "../../Types";
 import { push } from "firebase/database";
 import { useRouter } from "next/navigation";
 import { useRecoilState } from "recoil";
-import { serverName, setParam } from "../../atoms/modalAtoms";
+import { serverName, setParam, setParam1 } from "../../atoms/modalAtoms";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -14,6 +14,7 @@ function NavbarServer({ post, id }: Employee) {
   const [selectedServer, setSelectedServer] = useState<boolean>(false);
   const [serverNames, setServerNames] = useRecoilState<string>(serverName);
   const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
+  const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1);
 
   const paramsId: string = urlParams;
 

@@ -22,6 +22,10 @@ export const setParam = atom({
   key: "setParam",
   default: "",
 });
+export const setParam1 = atom({
+  key: "setParam1",
+  default: "",
+});
 
 export const setParamsUrl = atom({
   key: "setParamsUrl",

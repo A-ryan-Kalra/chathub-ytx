@@ -58,20 +58,27 @@ function SecondbarServer({
           orderBy("timestamp", "desc")
         ),
         (snapshot) => {
-          let events: any = [];
-          snapshot.forEach((doc) => {
-            events.push({ ...doc.data() });
-            // console.log(doc.data());
-          });
-          setChannelNameState(events);
-          // sessionStorage.setItem("post", JSON.stringify(events));
-          // console.log(post[0]?.data());
+          if (!snapshot.empty) {
+            // console.log("asdsads");
+            let events: any = [];
+            snapshot.forEach((doc) => {
+              events.push({ ...doc.data() });
+              // console.log(doc.data());
+            });
+            setChannelNameState(events);
+            // sessionStorage.setItem("post", JSON.stringify(events));
+            console.log("Existed");
+          } else {
+            setChannelNameState([]);
+            console.log("Not Existed");
+            console.log(Object.keys(channelNameState).length);
+          }
         }
       ),
     [database]
   );
   // console.log(post);
-  // console.log(channelNameState);
+  console.log(channelNameState);
 
   async function addChannelName() {
     const channelName = prompt("Enter a name");
