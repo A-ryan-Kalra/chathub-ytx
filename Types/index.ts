@@ -15,7 +15,6 @@ export interface CheckedArrayProps {
 }
 export interface SideBarProps {
   item: ArrProps;
-
   number?: number;
   checked: boolean;
   isSelected?: boolean;

@@ -10,7 +10,10 @@ export const postState = atom({
   key: "postState",
   default: {},
 });
-
+export const channelName = atom({
+  key: "channelName",
+  default: [{}],
+});
 export const serverName = atom({
   key: "serverName",
   default: "",

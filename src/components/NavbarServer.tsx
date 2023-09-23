@@ -42,10 +42,6 @@ function NavbarServer({ post, id }: Employee) {
 
   let location: Employee = window.location.pathname.split("/");
   // console.log(location[2]);
-  setTimeout(() => {
-    const str: string = location[2];
-    console.log(str);
-  }, 2200);
 
   return (
     <Link href={`/channels/${post.uid}`}>

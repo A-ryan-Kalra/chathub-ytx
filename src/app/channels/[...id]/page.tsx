@@ -15,6 +15,7 @@ import { File } from "buffer";
 import { Dialog, Transition } from "@headlessui/react";
 import { FormatInputPathObject } from "path";
 import {
+  channelName,
   postState,
   serverName,
   sessionState,
@@ -135,6 +136,8 @@ function page({ params }: { params: any }) {
     // console.log(urlParams);
   }, [urlParams]);
   setUrlParams(params.id[0]);
+  const [channelNameState, setChannelNameState] =
+    useRecoilState<Employee[]>(channelName);
 
   useEffect(
     () =>
@@ -152,6 +155,7 @@ function page({ params }: { params: any }) {
           // console.log(post[0]?.data());
         }
       ),
+
     [database]
   );
 
