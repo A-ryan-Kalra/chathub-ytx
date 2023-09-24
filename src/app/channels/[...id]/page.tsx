@@ -366,7 +366,7 @@ function page({ params }: { params: Employee }) {
           </Dialog>
         </Transition>
       </div>
-      <div className="min-h-screen bg-[#2A2D30] w-[240px]">
+      <div className="h-screen bg-[#2A2D30] w-[240px]">
         <div className="flex-col flex ">
           {Object.keys(post).length !== 0 &&
             post.map((item: any, index: number) => (
