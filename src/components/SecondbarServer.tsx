@@ -137,20 +137,20 @@ function SecondbarServer({
   const [name, setName] = useState<string>("");
   const [name1, setName1] = useState<string>("");
 
-  // useEffect(() => {
-  //   var name: string = session?.user?.displayName?.split(" ")[0];
-  //   setName1(name);
-  //   var last: string = session?.user?.createdAt.slice(0, 4);
+  useEffect(() => {
+    var name: string = session?.user?.displayName?.split(" ")[0];
+    setName1(name);
+    var last: string = session?.user?.createdAt?.slice(0, 4);
 
-  //   setName(name + last);
-  // }, []);
+    setName(name + last);
+  }, []);
 
-  // const [user, setUser] = useRecoilState(
-  //   atom({
-  //     key: "userState",
-  //     default: null,
-  //   })
-  // );
+  const [user, setUser] = useRecoilState(
+    atom({
+      key: "userState",
+      default: null,
+    })
+  );
 
   // useEffect(() => {
   //   onAuthStateChanged(getAuth(app), (user) => {
@@ -167,8 +167,8 @@ function SecondbarServer({
       {isClient &&
         Object.keys(post).length !== 0 &&
         urlParams === post?.uid && (
-          <div className="flex-grow  ">
-            <div className=" relative flex-col flex flex-grow ">
+          <div className="">
+            <div className="   flex-col flex flex-grow ">
               <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b-2 border-black">
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
                   {post.serverName}
@@ -210,6 +210,73 @@ function SecondbarServer({
                       />
                     ))}
                 </div>
+              </div>
+            </div>
+
+            <div className="w-[235px] z-10 absolute bottom-0 h-[54px] flex justify-between items-center  bg-[#222429]">
+              <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
+                <div
+                  className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
+                  onClick={() => {
+                    // sessionStorage.clear();
+                    sessionStorage?.clear();
+                    router?.push("/");
+                    // signOut(auth);
+                    // console.log(res);
+                    //  signOut(auth)
+                    //  .then(() => {
+                    //     console.log("signOut");
+
+                    //   })
+                    //   .catch((e) => {
+                    //     console.error(e);
+                    //   });
+                    // router.refresh;
+                  }}
+                >
+                  <Image
+                    src={session?.user?.photoURL}
+                    fill
+                    alt="logo"
+                    className="rounded-full object-contain"
+                  />
+                </div>
+                <div className="cursor-pointer ml-1 flex flex-col text-white">
+                  <p className="text-sm break-words">{name1}</p>
+                  <p className="text-[#868E97] text-xs">{name}</p>
+                </div>
+              </div>
+              <div className=" h-full w-full p-1 flex items-center justify-between">
+                <button
+                  type="button"
+                  className="p-2 hover:bg-[#43454b] rounded-lg"
+                >
+                  <Icon
+                    icon="mdi:microphone"
+                    className="text-[#B5BBC0] "
+                    width={20}
+                  />
+                </button>
+                <button
+                  type="button"
+                  className="p-2 hover:bg-[#43454b] rounded-lg"
+                >
+                  <Icon
+                    icon="ri:headphone-fill"
+                    className="text-[#B5BBC0]"
+                    width={20}
+                  />
+                </button>
+                <button
+                  type="button"
+                  className="p-2 hover:bg-[#43454b] rounded-lg"
+                >
+                  <Icon
+                    icon="icon-park-solid:setting"
+                    className="text-[#B5BBC0]"
+                    width={20}
+                  />
+                </button>
               </div>
             </div>
           </div>
