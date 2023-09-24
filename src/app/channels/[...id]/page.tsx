@@ -367,78 +367,19 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
 
-      <div className="min-h-screen flex flex-col justify-between  bg-[#2A2D30] w-[240px]">
-        <div className="flex-col    flex ">
-          {Object.keys(post).length !== 0 &&
-            post.map((item: any, index: number) => (
-              <SecondbarServer
-                serverName={serverNames}
-                post={item}
-                id={item?.uid}
-                key={index}
-                urlParams={urlParams}
-                urlParams12={urlParams1}
-                // setUrlParams1={setUrlParams1}
-              />
-            ))}
-        </div>
-        <div className="fixed w-[235px] bottom-0 z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
-          <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
-            <div
-              className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
-              onClick={() => {
-                // sessionStorage.clear();
-                sessionStorage?.clear();
-                router?.push("/");
-                // signOut(auth);
-                // console.log(res);
-                //  signOut(auth)
-                //  .then(() => {
-                //     console.log("signOut");
-
-                //   })
-                //   .catch((e) => {
-                //     console.error(e);
-                //   });
-                // router.refresh;
-              }}
-            >
-              {/* <Image
-                  src={session?.user?.photoURL}
-                  fill
-                  alt="logo"
-                  className="rounded-full object-contain"
-                /> */}
-            </div>
-            <div className="cursor-pointer ml-1 flex flex-col text-white">
-              <p className="text-sm">sads</p>
-              <p className="text-[#868E97] text-xs">sadsa</p>
-            </div>
-          </div>
-          <div className=" h-full w-full p-1 flex items-center justify-between">
-            <button type="button" className="p-2 hover:bg-[#43454b] rounded-lg">
-              <Icon
-                icon="mdi:microphone"
-                className="text-[#B5BBC0] "
-                width={20}
-              />
-            </button>
-            <button type="button" className="p-2 hover:bg-[#43454b] rounded-lg">
-              <Icon
-                icon="ri:headphone-fill"
-                className="text-[#B5BBC0]"
-                width={20}
-              />
-            </button>
-            <button type="button" className="p-2 hover:bg-[#43454b] rounded-lg">
-              <Icon
-                icon="icon-park-solid:setting"
-                className="text-[#B5BBC0]"
-                width={20}
-              />
-            </button>
-          </div>
-        </div>
+      <div className="  flex flex-col    bg-[#2A2D30] w-[240px]">
+        {Object.keys(post).length !== 0 &&
+          post.map((item: any, index: number) => (
+            <SecondbarServer
+              serverName={serverNames}
+              post={item}
+              id={item?.uid}
+              key={index}
+              urlParams={urlParams}
+              urlParams12={urlParams1}
+              // setUrlParams1={setUrlParams1}
+            />
+          ))}
       </div>
     </div>
   );
