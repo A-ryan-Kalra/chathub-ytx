@@ -367,8 +367,8 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
 
-      <div className=" flex flex-col h-[100vh] justify-between  bg-[#2A2D30] w-[240px]">
-        <div className="flex-col  flex ">
+      <div className="min-h-screen flex flex-col justify-between  bg-[#2A2D30] w-[240px]">
+        <div className="flex-col    flex ">
           {Object.keys(post).length !== 0 &&
             post.map((item: any, index: number) => (
               <SecondbarServer
@@ -382,7 +382,7 @@ function page({ params }: { params: Employee }) {
               />
             ))}
         </div>
-        <div className=" w-full z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
+        <div className="fixed w-[235px] bottom-0 z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
           <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
             <div
               className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
