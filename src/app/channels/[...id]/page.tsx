@@ -367,7 +367,7 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
 
-      <div className=" flex flex-col   bg-[#2A2D30] w-[240px]">
+      <div className=" flex flex-col h-[100vh] justify-between  bg-[#2A2D30] w-[240px]">
         <div className="flex-col  flex ">
           {Object.keys(post).length !== 0 &&
             post.map((item: any, index: number) => (
