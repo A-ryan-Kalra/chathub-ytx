@@ -168,7 +168,7 @@ function SecondbarServer({
         Object.keys(post).length !== 0 &&
         urlParams === post?.uid && (
           <>
-            <div className=" relative flex-col bg-white flex flex-grow ">
+            <div className=" relative flex-col flex  ">
               <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b-2 border-black">
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
                   {post.serverName}
@@ -213,7 +213,7 @@ function SecondbarServer({
               </div>
             </div>
 
-            <div className="w-full z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
+            <div className="w-full absolute bottom-0 z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
               <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
                 <div
                   className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
