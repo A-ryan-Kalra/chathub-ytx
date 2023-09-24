@@ -137,13 +137,13 @@ function SecondbarServer({
   const [name, setName] = useState<string>("");
   const [name1, setName1] = useState<string>("");
 
-  useEffect(() => {
-    var name: string = session?.user?.displayName?.split(" ")[0];
-    setName1(name);
-    var last: string = session?.user?.createdAt.slice(0, 4);
+  // useEffect(() => {
+  //   var name: string = session?.user?.displayName?.split(" ")[0];
+  //   setName1(name);
+  //   var last: string = session?.user?.createdAt.slice(0, 4);
 
-    setName(name + last);
-  }, []);
+  //   setName(name + last);
+  // }, []);
 
   // const [user, setUser] = useRecoilState(
   //   atom({
@@ -246,8 +246,8 @@ function SecondbarServer({
                   />
                 </div>
                 <div className="cursor-pointer ml-1 flex flex-col text-white">
-                  <p className="text-sm break-words">{name1}</p>
-                  <p className="text-[#868E97] text-xs">{name}</p>
+                  <p className="text-sm break-words">sadasas</p>
+                  <p className="text-[#868E97] text-xs">asdsa</p>
                 </div>
               </div>
               <div className=" h-full w-full p-1 flex items-center justify-between">
