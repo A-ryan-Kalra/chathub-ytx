@@ -22,7 +22,7 @@ import {
   setParam,
   setParam1,
 } from "../../../../atoms/modalAtoms";
-import { useRecoilState } from "recoil";
+import { atom, useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
 import { GetServerSideProps } from "next";
 import {
@@ -35,7 +35,7 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { database, storage } from "../../../../firebaseConfig";
+import { auth, database, storage } from "../../../../firebaseConfig";
 import { Employee, SessionProps } from "../../../../Types";
 import { data } from "autoprefixer";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
@@ -43,6 +43,7 @@ import { Type } from "typescript";
 import NavbarServer from "@/components/NavbarServer";
 import SecondbarServer from "@/components/SecondbarServer";
 import Link from "next/link";
+import { onAuthStateChanged } from "firebase/auth";
 
 function page({ params }: { params: Employee }) {
   // console.log(JSON.stringify(params.id));
@@ -123,8 +124,6 @@ function page({ params }: { params: Employee }) {
     closeModal(setIsOpen);
   };
 
-  // console.log(post);
-
   useEffect(() => {
     const token: object = JSON.parse(sessionStorage.getItem("token") || "{}");
     let serPost: object = JSON.parse(sessionStorage.getItem("post") || "{}");
@@ -133,14 +132,13 @@ function page({ params }: { params: Employee }) {
     if (Object.keys(token).length === 0) {
       router.push("/");
     }
-
-    // console.log(urlParams);
   }, [urlParams]);
-
+  // console.log(Object.keys(params.id[0]).length);
+  // console.log(params.id);
   useEffect(() => {
-    if (params.id !== undefined) {
-      setUrlParams(params?.id[0]);
-      setUrlParams1(params?.id[1]);
+    if (Object.keys(params.id[0]).length >= 10) {
+      setUrlParams(params?.id[0] || "");
+      setUrlParams1(params?.id[1] || "");
     }
   });
   const [channelNameState, setChannelNameState] =
@@ -154,12 +152,9 @@ function page({ params }: { params: Employee }) {
           let events: any = [];
           snapshot.forEach((doc) => {
             events.push({ ...doc.data() });
-            // console.log(doc.data());
           });
           setPost(events);
           sessionStorage.setItem("post", JSON.stringify(events));
-
-          // console.log(post[0]?.data());
         }
       ),
 
@@ -381,7 +376,8 @@ function page({ params }: { params: Employee }) {
                 id={item?.uid}
                 key={index}
                 urlParams={urlParams}
-                urlParams1={urlParams1}
+                urlParams12={urlParams1}
+                // setUrlParams1={setUrlParams1}
               />
             ))}
         </div>

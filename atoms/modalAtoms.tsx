@@ -1,6 +1,7 @@
 "use client";
 import { RecoilRoot, atom } from "recoil";
 import { ReactNode } from "react";
+
 export const sessionState = atom({
   key: "sessionState",
   default: {},

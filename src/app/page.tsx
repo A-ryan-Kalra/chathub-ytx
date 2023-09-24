@@ -4,14 +4,15 @@ import Hero from "@/components/Hero";
 import Nav from "@/components/Nav";
 import Image from "next/image";
 import { postState, sessionState } from "../../atoms/modalAtoms";
-import { useRecoilState } from "recoil";
+import { atom, useRecoilState } from "recoil";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Employee } from "../../Types";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { database } from "../../firebaseConfig";
+import { auth, database } from "../../firebaseConfig";
 import Channels from "@/components/Channels";
 import NavbarServer from "@/components/NavbarServer";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
   const [session, setSession] = useRecoilState<object>(sessionState);
@@ -47,6 +48,7 @@ export default function Home() {
       ),
     [database]
   );
+
   // console.log(post);
   return (
     <main className=" max-h-screen overflow-y-auto">

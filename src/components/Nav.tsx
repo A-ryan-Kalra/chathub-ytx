@@ -6,7 +6,12 @@ import { Dialog, Transition } from "@headlessui/react";
 import SideBar from "./SideBar";
 import { ArrProps1, CheckedArrayProps, Employee } from "../../Types";
 import { app, database } from "../../firebaseConfig";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+  signOut,
+} from "firebase/auth";
 import { postState, sessionState } from "../../atoms/modalAtoms";
 import { useRecoilState } from "recoil";
 import { useRouter } from "next/navigation";
@@ -99,26 +104,7 @@ const Nav = () => {
     });
     setNewArr(Arr1);
   }
-  // const [post, setPost] = useRecoilState<Employee>(postState);
-  // useEffect(
-  //   () =>
-  //     onSnapshot(
-  //       query(collection(database, "Users"), orderBy("timestamp", "desc")),
-  //       (snapshot) => {
-  //         let events: any = [];
-  //         snapshot.forEach((doc) => {
-  //           events.push({ ...doc.data() });
-  //           // console.log(doc.data());
-  //         });
-  //         setPost(events);
-  //         // console.log(post[0]?.data());
-  //       }
-  //     ),
-  //   [database]
-  // );
-  // console.log(post);
 
-  // console.log(isOpen);
   return (
     <nav className="w-full relative md:max-lg:px-9 px-4 bg-[#465EEC]">
       <div className="w-full p-1 max-w-[1200px] mx-auto h-20 px-3 flex justify-between items-center">
@@ -165,6 +151,7 @@ const Nav = () => {
               <button
                 type="button"
                 className="bg-white px-3 py-2 hover:drop-shadow-xl shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
+                onClick={() => signOut(auth)}
               >
                 Open Discord
               </button>

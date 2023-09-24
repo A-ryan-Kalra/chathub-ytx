@@ -1,11 +1,12 @@
 "use client";
 import React, { ReactNode, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import { atom, useRecoilState } from "recoil";
 import { Employee } from "../../Types";
 import {
   channelName,
   sessionState,
   setParam,
+  setParam1,
   setParamsUrl,
 } from "../../atoms/modalAtoms";
 import { Icon } from "@iconify/react";
@@ -19,23 +20,25 @@ import {
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { database } from "../../firebaseConfig";
+import { app, auth, database } from "../../firebaseConfig";
 import ChannelNameSection from "./ChannelNameSection";
 import { data } from "autoprefixer";
 import Image from "next/image";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
 
 function SecondbarServer({
   post,
   id,
   serverName,
   urlParams,
-  urlParams1,
+  urlParams12,
 }: {
   post: Employee;
   id: Employee;
   serverName: string;
   urlParams: string;
-  urlParams1: string;
+  urlParams12: string;
 }) {
   // console.log(post);
   const [isClient, setIsClient] = useState<boolean>(false);
@@ -56,15 +59,24 @@ function SecondbarServer({
     setIsClient(true);
   }, []);
 
+  // useEffect(
+  //   () =>
+  //     onAuthStateChanged(auth, (userInfo) => {
+  //       console.log("userInfo");
+  //       // console.log(userInfo);
+  //     }),
+  //   []
+  // );
   // console.log(urlParams.length);
 
   // if(urlParams.length)
+  const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
 
   useEffect(
     () =>
       onSnapshot(
         query(
-          collection(database, "Users", urlParams || "asdsa", "Channels"),
+          collection(database, "Users", urlParams || "asdad", "Channels"),
           orderBy("timestamp", "desc")
         ),
         (snapshot) => {
@@ -74,12 +86,16 @@ function SecondbarServer({
             snapshot.forEach((doc) => {
               events.push({ ...doc.data() });
               // console.log(doc.data());
+              // console.log("offooo");
             });
             setChannelNameState(events);
             // sessionStorage.setItem("post", JSON.stringify(events));
-            console.log("Existed");
+            // console.log("Existed");
           } else {
             setChannelNameState([]);
+            setUrlParams1("");
+            // console.log("clean up");
+            // setParamsUrl('')
             // console.log(channelNameState);
             // console.log(Object.keys(channelNameState).length);
           }
@@ -119,15 +135,34 @@ function SecondbarServer({
   }
   // console.log(session);
   const [name, setName] = useState<string>("");
+  const [name1, setName1] = useState<string>("");
 
   useEffect(() => {
-    var name = session?.user?.displayName?.split(" ")[0];
-    var last = session?.user?.createdAt;
+    var name: string = session?.user?.displayName?.split(" ")[0];
+    setName1(name);
+    var last: string = session?.user?.createdAt;
     last?.slice(0, 4);
+
     setName(name);
   }, []);
 
+  // const [user, setUser] = useRecoilState(
+  //   atom({
+  //     key: "userState",
+  //     default: null,
+  //   })
+  // );
+
+  // useEffect(() => {
+  //   onAuthStateChanged(getAuth(app), (user) => {
+  //     const userCopy = JSON.parse(JSON.stringify(user));
+  //     console.log(userCopy);
+  //     console.log("check above");
+  //     setUser(userCopy);
+  //   });
+  // }, [setUser]);
   // console.log(session.user.displayName.split(" ").join(session.user.));
+  const router = useRouter();
   return (
     <>
       {isClient &&
@@ -172,7 +207,7 @@ function SecondbarServer({
                         channel={channel}
                         id={channel.uid}
                         channelNameState={channelNameState}
-                        urlParams1={urlParams1}
+                        urlParams12={urlParams12}
                       />
                     ))}
                 </div>
@@ -180,7 +215,25 @@ function SecondbarServer({
             </div>
             <div className=" relative w-full z-10 bottom-0 h-[54px] flex justify-between items-center  bg-[#222429]">
               <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
-                <div className="w-[40px] h-[40px] cursor-pointer relative rounded-full">
+                <div
+                  className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
+                  onClick={() => {
+                    // sessionStorage.clear();
+                    sessionStorage.clear();
+                    router.push("/");
+                    signOut(auth);
+                    // console.log(res);
+                    //  signOut(auth)
+                    //  .then(() => {
+                    //     console.log("signOut");
+
+                    //   })
+                    //   .catch((e) => {
+                    //     console.error(e);
+                    //   });
+                    // router.refresh;
+                  }}
+                >
                   <Image
                     src={session?.user?.photoURL}
                     fill
@@ -189,9 +242,7 @@ function SecondbarServer({
                   />
                 </div>
                 <div className="cursor-pointer ml-1 flex flex-col text-white">
-                  <p className="text-sm">
-                    {session.user.displayName.split(" ")[0]}
-                  </p>
+                  <p className="text-sm">{name1}</p>
                   <p className="text-[#868E97] text-xs">{name.toLowerCase()}</p>
                 </div>
               </div>

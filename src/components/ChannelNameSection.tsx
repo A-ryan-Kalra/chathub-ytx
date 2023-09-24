@@ -12,12 +12,12 @@ function ChannelNameSection({
   channel,
   id,
   channelNameState,
-  urlParams1,
+  urlParams12,
 }: {
   channel: Employee;
   id: String;
   channelNameState: Employee;
-  urlParams1: string;
+  urlParams12: string;
 }) {
   const [channelState, setChannelState] = useState(false);
   const [url, setUrl] = useRecoilState<string>(setParamsUrl || "");
@@ -27,34 +27,37 @@ function ChannelNameSection({
 
   //   console.log(Object.keys(channelNameState).length);
   const [id1, setId1] = useState<string>("");
-
+  // console.log(url);
   const [channelNameState1, setChannelNameState1] = useState<Employee>([]);
+  // console.log(urlParams12);
   function channelStatusChecked(): void {
     channelNameState1.map(async (item: Employee, index: number) => {
       if (Object.keys(channelNameState1).length !== 0) {
         try {
-          if (urlParams1 === item?.uid) {
+          if (urlParams12 === item?.uid) {
             await updateDoc(
-              doc(database, "Users", url, "Channels", item?.uid),
+              doc(database, "Users", url || "asd", "Channels", item?.uid),
               {
                 checkStatus: true,
               }
             );
             // setChannelState(true);
-            console.log("error bypassing");
+            // console.log("error bypassing");
             // console.log(typeof item.uid);
           } else {
             await updateDoc(
-              doc(database, "Users", url, "Channels", item?.uid),
+              doc(database, "Users", url || "asds", "Channels", item?.uid),
               {
                 checkStatus: false,
               }
             );
             // setChannelState(false);
-            console.log("oooppps");
+            // console.log("oooppps");
           }
         } catch (e) {
           console.error("No document to update", e);
+          // setUrl("");
+          // setChannelNameState1([]);
         }
       } else {
         return;
@@ -62,22 +65,23 @@ function ChannelNameSection({
     });
   }
   //   console.log(channel.checkStatus);
-
+  // console.log(urlParams12);
   useEffect(() => {
     if (Object.keys(channelNameState).length !== 0) {
-      console.log("trespassing");
-      console.log(Object.keys(channelNameState1).length);
+      // console.log("trespassing");
+      // console.log(Object.keys(channelNameState1).length);
+      console.log(Object.keys(channelNameState).length);
       channelStatusChecked();
     }
 
     setChannelState(channel.checkStatus);
   });
   useEffect(() => {
-    setSecondParam(urlParams1);
+    setSecondParam(urlParams12);
 
     setChannelNameState1(channelNameState);
     // console.log(Object.keys(channelNameState).length);
-    console.log("error");
+    // console.log("error");
   }, []);
 
   //   console.log(channelState);
