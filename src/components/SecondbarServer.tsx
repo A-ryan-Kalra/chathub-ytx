@@ -145,22 +145,6 @@ function SecondbarServer({
     setName(name + last);
   }, []);
 
-  const [user, setUser] = useRecoilState(
-    atom({
-      key: "userState",
-      default: null,
-    })
-  );
-
-  // useEffect(() => {
-  //   onAuthStateChanged(getAuth(app), (user) => {
-  //     const userCopy = JSON.parse(JSON.stringify(user));
-  //     console.log(userCopy);
-  //     console.log("check above");
-  //     setUser(userCopy);
-  //   });
-  // }, [setUser]);
-  // console.log(session.user.displayName.split(" ").join(session.user.));
   const router = useRouter();
   return (
     <>
@@ -213,10 +197,10 @@ function SecondbarServer({
               </div>
             </div>
 
-            <div className="w-[235px] z-10 fixed bottom-0 h-[54px] flex justify-between items-center  bg-[#222429]">
+            <div className="w-[235px] z-10 fixed bottom-0 h-[54px] flex justify-between items-center p-1 bg-[#222429]">
               <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
                 <div
-                  className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
+                  className="w-[40px] flex-wrap h-[40px] cursor-pointer relative rounded-full"
                   onClick={() => {
                     // sessionStorage.clear();
                     sessionStorage?.clear();
@@ -242,14 +226,16 @@ function SecondbarServer({
                   />
                 </div>
                 <div className="cursor-pointer ml-1 flex flex-col text-white">
-                  <p className="text-sm break-words">{name1}</p>
-                  <p className="text-[#868E97] text-xs">{name}</p>
+                  <p className="text-[13px] font-semibold break-words">
+                    {name1}
+                  </p>
+                  <p className="text-[#868E97] text-[11px]">{name}</p>
                 </div>
               </div>
-              <div className=" h-full w-full p-1 flex items-center justify-between">
+              <div className=" h-full w-full  flex items-center justify-between">
                 <button
                   type="button"
-                  className="p-2 hover:bg-[#43454b] rounded-lg"
+                  className="p-[6px] hover:bg-[#43454b] rounded-lg"
                 >
                   <Icon
                     icon="mdi:microphone"
@@ -259,7 +245,7 @@ function SecondbarServer({
                 </button>
                 <button
                   type="button"
-                  className="p-2 hover:bg-[#43454b] rounded-lg"
+                  className="p-[6px] hover:bg-[#43454b] rounded-lg"
                 >
                   <Icon
                     icon="ri:headphone-fill"
@@ -269,7 +255,7 @@ function SecondbarServer({
                 </button>
                 <button
                   type="button"
-                  className="p-2 hover:bg-[#43454b] rounded-lg"
+                  className="p-[6px] hover:bg-[#43454b] rounded-lg"
                 >
                   <Icon
                     icon="icon-park-solid:setting"

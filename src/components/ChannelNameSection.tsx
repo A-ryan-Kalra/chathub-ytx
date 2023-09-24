@@ -70,7 +70,7 @@ function ChannelNameSection({
     if (Object.keys(channelNameState).length !== 0) {
       // console.log("trespassing");
       // console.log(Object.keys(channelNameState1).length);
-      console.log(Object.keys(channelNameState).length);
+      // console.log(Object.keys(channelNameState).length);
       channelStatusChecked();
     }
 
