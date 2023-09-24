@@ -167,8 +167,8 @@ function SecondbarServer({
       {isClient &&
         Object.keys(post).length !== 0 &&
         urlParams === post?.uid && (
-          <>
-            <div className=" relative flex-col flex  ">
+          <div className="mb-10   bg-black">
+            <div className="   flex-col flex  flex-grow  overflow-y-auto min-h-[80vh]  ">
               <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b-2 border-black">
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
                   {post.serverName}
@@ -198,7 +198,7 @@ function SecondbarServer({
                 />
               </span>
               <div className=" z-0 px-2  ">
-                <div className="flex   overflow-y-auto max-h-[80vh]    flex-col pb-10 gap-2">
+                <div className="flex     flex-col pb-10 gap-2">
                   {Object.keys(channelNameState).length !== 0 &&
                     channelNameState.map((channel: Employee, index: number) => (
                       <ChannelNameSection
@@ -213,7 +213,7 @@ function SecondbarServer({
               </div>
             </div>
 
-            <div className="w-full absolute bottom-0 z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
+            <div className="w-full relative z-10  h-[54px] flex justify-between items-center  bg-[#222429]">
               <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
                 <div
                   className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
@@ -279,7 +279,7 @@ function SecondbarServer({
                 </button>
               </div>
             </div>
-          </>
+          </div>
         )}
     </>
   );
