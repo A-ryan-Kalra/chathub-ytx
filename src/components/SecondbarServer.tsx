@@ -213,7 +213,7 @@ function SecondbarServer({
               </div>
             </div>
 
-            <div className="w-[235px] z-10 absolute bottom-0 h-[54px] flex justify-between items-center  bg-[#222429]">
+            <div className="w-[235px] z-10 fixed bottom-0 h-[54px] flex justify-between items-center  bg-[#222429]">
               <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
                 <div
                   className="w-[40px] h-[40px] cursor-pointer relative rounded-full"
