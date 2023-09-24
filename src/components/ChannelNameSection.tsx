@@ -4,7 +4,7 @@ import { Employee } from "../../Types";
 import { doc, updateDoc } from "firebase/firestore";
 import { database } from "../../firebaseConfig";
 import { useRecoilState } from "recoil";
-import { setParam1, setParamsUrl } from "../../atoms/modalAtoms";
+import { setParam, setParam1, setParamsUrl } from "../../atoms/modalAtoms";
 import Link from "next/link";
 import { error } from "console";
 
@@ -12,23 +12,28 @@ function ChannelNameSection({
   channel,
   id,
   channelNameState,
+  urlParams1,
 }: {
   channel: Employee;
   id: String;
   channelNameState: Employee;
+  urlParams1: string;
 }) {
   const [channelState, setChannelState] = useState(false);
   const [url, setUrl] = useRecoilState<string>(setParamsUrl || "");
-  const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
+  // const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
   const [secondParam, setSecondParam] = useState<string>("");
+  const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
 
   //   console.log(Object.keys(channelNameState).length);
+  const [id1, setId1] = useState<string>("");
+
   const [channelNameState1, setChannelNameState1] = useState<Employee>([]);
   function channelStatusChecked(): void {
     channelNameState1.map(async (item: Employee, index: number) => {
       if (Object.keys(channelNameState1).length !== 0) {
         try {
-          if (urlParams1 === item?.uid && urlParams1 !== undefined) {
+          if (urlParams1 === item?.uid) {
             await updateDoc(
               doc(database, "Users", url, "Channels", item?.uid),
               {
@@ -60,22 +65,25 @@ function ChannelNameSection({
 
   useEffect(() => {
     if (Object.keys(channelNameState).length !== 0) {
+      console.log("trespassing");
+      console.log(Object.keys(channelNameState1).length);
       channelStatusChecked();
     }
+
     setChannelState(channel.checkStatus);
   });
   useEffect(() => {
     setSecondParam(urlParams1);
 
     setChannelNameState1(channelNameState);
-    console.log(Object.keys(channelNameState).length);
+    // console.log(Object.keys(channelNameState).length);
     console.log("error");
-  }, [urlParams1]);
+  }, []);
 
   //   console.log(channelState);
   return (
     <Link
-      href={`/channels/${url}/${channel?.uid}`}
+      href={`/channels/${urlParams}/${channel?.uid}`}
       className={`flex justify-between hover:rounded-md ease-out   transform transition-all  hover:bg-[#494c53] ${
         channelState ? "bg-[#404348] rounded-md" : ""
       } px-2 py-[2px] items-center cursor-pointer group`}

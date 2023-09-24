@@ -45,11 +45,10 @@ import SecondbarServer from "@/components/SecondbarServer";
 import Link from "next/link";
 
 function page({ params }: { params: Employee }) {
-  // console.log(url);
   // console.log(JSON.stringify(params.id));
   const [urlParams, setUrlParams] = useRecoilState<string>(setParam || "");
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
-  console.log(params);
+  // console.log(params);
   // const url = window.location.pathname.concat("aswa");
   // const url = window.location.pathname;
 
@@ -137,10 +136,13 @@ function page({ params }: { params: Employee }) {
 
     // console.log(urlParams);
   }, [urlParams]);
-  if (params.id !== undefined) {
-    setUrlParams(params?.id[0]);
-    setUrlParams1(params?.id[1]);
-  }
+
+  useEffect(() => {
+    if (params.id !== undefined) {
+      setUrlParams(params?.id[0]);
+      setUrlParams1(params?.id[1]);
+    }
+  });
   const [channelNameState, setChannelNameState] =
     useRecoilState<Employee[]>(channelName);
 
@@ -183,7 +185,12 @@ function page({ params }: { params: Employee }) {
         {Object.keys(post).length !== 0 &&
           post?.map(
             (item: any, index: number) => (
-              <NavbarServer key={index} post={item} id={item?.uid} />
+              <NavbarServer
+                key={index}
+                post={item}
+                urlParams={urlParams}
+                id={item?.uid}
+              />
             )
             // console.log(item)
           )}
@@ -365,7 +372,7 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
       <div className="min-h-screen bg-[#2A2D30] w-[240px]">
-        <div className="flex-col flex">
+        <div className="flex-col flex ">
           {Object.keys(post).length !== 0 &&
             post.map((item: any, index: number) => (
               <SecondbarServer
@@ -373,6 +380,8 @@ function page({ params }: { params: Employee }) {
                 post={item}
                 id={item?.uid}
                 key={index}
+                urlParams={urlParams}
+                urlParams1={urlParams1}
               />
             ))}
         </div>

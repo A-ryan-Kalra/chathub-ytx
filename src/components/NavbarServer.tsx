@@ -7,42 +7,44 @@ import { serverName, setParam, setParam1 } from "../../atoms/modalAtoms";
 import Link from "next/link";
 import Image from "next/image";
 
-function NavbarServer({ post, id }: Employee) {
-  // console.log(post);
-
+function NavbarServer({ post, id, urlParams }: Employee) {
   const [isClient, setIsClient] = useState<boolean>(false);
   const [selectedServer, setSelectedServer] = useState<boolean>(false);
   const [serverNames, setServerNames] = useRecoilState<string>(serverName);
-  const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
+  // const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1);
 
   const paramsId: string = urlParams;
 
   const router = useRouter();
-  // console.log(paramsId.length);
+
+  const [url, setUrl] = useState<string>("");
+  const [id1, setId1] = useState<string>("");
   useEffect(() => {
     setIsClient(true);
-  }, []);
-  // console.log(window.location.pathname);
-  useEffect(() => {
-    const setServer: boolean = JSON.parse(
-      sessionStorage.getItem("setServer") || "false"
-    );
-    const server: string = JSON.parse(
-      sessionStorage.getItem("serverName") || "123"
-    );
+    setUrl(location[2]);
+    setId1(id);
+  });
 
-    if (id === urlParams) {
+  useEffect(() => {
+    // const setServer: boolean = JSON.parse(
+    //   sessionStorage.getItem("setServer") || "false"
+    // );
+    // const server: string = JSON.parse(
+    //   sessionStorage.getItem("serverName") || "123"
+    // );
+
+    if (id1 === urlParams) {
       setTimeout(() => {
         setSelectedServer(true);
-        // console.log(id);
       }, 100);
+    } else {
+      setSelectedServer(false);
     }
     // setServerNames(urlParams);
-  }, [urlParams]);
+  });
 
   let location: Employee = window.location.pathname.split("/");
-  // console.log(location[2]);
 
   return (
     <Link href={`/channels/${post.uid}`}>
@@ -50,8 +52,8 @@ function NavbarServer({ post, id }: Employee) {
         <div
           className=" w-full cursor-pointer flex  mx-auto h-[50px] group"
           onClick={() => {
-            sessionStorage.setItem("setServer", JSON.stringify(true));
-            sessionStorage.setItem("serverName", JSON.stringify(post.uid));
+            // sessionStorage.setItem("setServer", JSON.stringify(true));
+            // sessionStorage.setItem("serverName", JSON.stringify(post.uid));
             // router.push(`/channels/${post.uid}`);
             // setServer();
           }}
