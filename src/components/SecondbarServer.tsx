@@ -169,7 +169,7 @@ function SecondbarServer({
         Object.keys(post).length !== 0 &&
         urlParams === post?.uid && (
           <div className=" relative flex-col flex justify-between">
-            <div className="  flex-1  max-h-[95vh]">
+            <div className="  flex-1  ">
               <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b-2 border-black">
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
                   {post.serverName}
