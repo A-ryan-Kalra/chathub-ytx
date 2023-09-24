@@ -367,7 +367,7 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
       <div className="min-h-screen flex flex-col justify-between  bg-[#2A2D30] w-[240px]">
-        <div className="flex-col bg-white flex-grow flex ">
+        <div className="flex-col  flex-grow flex ">
           {Object.keys(post).length !== 0 &&
             post.map((item: any, index: number) => (
               <SecondbarServer
