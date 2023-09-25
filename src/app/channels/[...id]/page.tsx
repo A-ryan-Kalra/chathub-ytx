@@ -381,7 +381,7 @@ function page({ params }: { params: Employee }) {
             />
           ))}
       </div>
-      <ThirdBar urlParams1={urlParams1} />
+      {/* <ThirdBar urlParams1={urlParams1} /> */}
     </div>
   );
 }
