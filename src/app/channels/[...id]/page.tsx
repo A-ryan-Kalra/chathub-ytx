@@ -17,6 +17,7 @@ import { FormatInputPathObject } from "path";
 import {
   channelName,
   postState,
+  screenState,
   serverName,
   sessionState,
   setParam,
@@ -45,12 +46,13 @@ import SecondbarServer from "@/components/SecondbarServer";
 import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
 import ThirdBar from "@/components/ThirdBar";
+import Me from "@/components/Me";
 
 function page({ params }: { params: Employee }) {
   // console.log(JSON.stringify(params.id));
   const [urlParams, setUrlParams] = useRecoilState<string>(setParam || "");
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
-  // console.log(params);
+  // console.log(params.id[0]);
   // const url = window.location.pathname.concat("aswa");
   // const url = window.location.pathname;
 
@@ -70,6 +72,7 @@ function page({ params }: { params: Employee }) {
   );
 
   const [post, setPost] = useRecoilState<Employee>(postState);
+  const [screen, setScreen] = useRecoilState<boolean>(screenState);
 
   function closeModal(setIsOpen: (isOpen: boolean) => void): void {
     setIsOpen(false);
@@ -128,6 +131,7 @@ function page({ params }: { params: Employee }) {
   useEffect(() => {
     const token: object = JSON.parse(sessionStorage.getItem("token") || "{}");
     let serPost: object = JSON.parse(sessionStorage.getItem("post") || "{}");
+
     setPost(serPost);
     setSession(token);
     if (Object.keys(token).length === 0) {
@@ -163,7 +167,13 @@ function page({ params }: { params: Employee }) {
 
   return (
     <div className="min-h-screen flex fixed inset-0">
-      <div className="min-h-screen flex-grow bg-[#1F1E22] flex-col flex gap-2 max-w-[80px] min-w-[80px] overflow-y-auto">
+      <div
+        className={`  ${
+          screen
+            ? "min-h-screen  bg-[#1F1E22] flex-col flex gap-2 max-w-[80px] min-w-[80px] overflow-y-auto"
+            : "hidden"
+        }  `}
+      >
         <Link
           href={"/channels/@me"}
           className=" cursor-pointer ml-0 flex mt-3 mx-auto  group"
@@ -367,7 +377,13 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
 
-      <div className="  flex-grow  flex flex-col    bg-[#2A2D30] max-w-[240px] min-w-[240px]">
+      <div
+        className={`${
+          screen
+            ? "flex flex-col flex-grow bg-[#2A2D30] lg:max-w-[240px] min-w-[240px]"
+            : "hidden"
+        }`}
+      >
         {Object.keys(post).length !== 0 &&
           post.map((item: any, index: number) => (
             <SecondbarServer
@@ -381,7 +397,11 @@ function page({ params }: { params: Employee }) {
             />
           ))}
       </div>
-      <ThirdBar urlParams1={urlParams1} />
+      {params !== undefined && params?.id[0] === "%40me" ? (
+        <Me />
+      ) : (
+        <ThirdBar urlParams1={urlParams1} urlParams={urlParams} />
+      )}
     </div>
   );
 }

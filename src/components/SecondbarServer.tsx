@@ -4,6 +4,7 @@ import { atom, useRecoilState } from "recoil";
 import { Employee } from "../../Types";
 import {
   channelName,
+  screenState,
   sessionState,
   setParam,
   setParam1,
@@ -47,6 +48,7 @@ function SecondbarServer({
   const [session, setSession] = useRecoilState<Employee>(sessionState);
   const [channelNameState, setChannelNameState] =
     useRecoilState<Employee[]>(channelName);
+  const [screen, setScreen] = useRecoilState<boolean>(screenState);
 
   // console.log(post.uid);
   // console.log(paramsId);
@@ -197,7 +199,9 @@ function SecondbarServer({
               </div>
             </div>
 
-            <div className="w-[235px] z-10 fixed bottom-0 h-[54px] flex justify-between items-center p-1 bg-[#222429]">
+            <div
+              className={`w-[240px] ${screen} z-10 fixed bottom-0 h-[54px] flex justify-between items-center p-1 bg-[#222429]`}
+            >
               <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
                 <div
                   className="w-[40px] flex-wrap h-[40px] cursor-pointer relative rounded-full"

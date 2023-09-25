@@ -6,6 +6,10 @@ export const sessionState = atom({
   key: "sessionState",
   default: {},
 });
+export const screenState = atom({
+  key: "screenState",
+  default: false,
+});
 
 export const postState = atom({
   key: "postState",
