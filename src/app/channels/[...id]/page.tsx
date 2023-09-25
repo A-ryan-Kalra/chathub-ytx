@@ -44,6 +44,7 @@ import NavbarServer from "@/components/NavbarServer";
 import SecondbarServer from "@/components/SecondbarServer";
 import Link from "next/link";
 import { onAuthStateChanged } from "firebase/auth";
+import ThirdBar from "@/components/ThirdBar";
 
 function page({ params }: { params: Employee }) {
   // console.log(JSON.stringify(params.id));
@@ -136,11 +137,10 @@ function page({ params }: { params: Employee }) {
   // console.log(Object.keys(params.id[0]).length);
   // console.log(params.id);
   useEffect(() => {
-    if (Object.keys(params.id[0]).length >= 10) {
-      setUrlParams(params?.id[0] || "");
-      setUrlParams1(params?.id[1] || "");
-    }
+    setUrlParams(params?.id[0] || "");
+    setUrlParams1(params?.id[1] || "");
   });
+  // console.log(urlParams1);
   const [channelNameState, setChannelNameState] =
     useRecoilState<Employee[]>(channelName);
 
@@ -163,7 +163,7 @@ function page({ params }: { params: Employee }) {
 
   return (
     <div className="min-h-screen flex fixed inset-0">
-      <div className="min-h-screen  bg-[#1F1E22] flex-col flex gap-2 w-[80px] overflow-y-auto">
+      <div className="min-h-screen flex-grow bg-[#1F1E22] flex-col flex gap-2 max-w-[80px] min-w-[80px] overflow-y-auto">
         <Link
           href={"/channels/@me"}
           className=" cursor-pointer ml-0 flex mt-3 mx-auto  group"
@@ -367,7 +367,7 @@ function page({ params }: { params: Employee }) {
         </Transition>
       </div>
 
-      <div className="   flex flex-col    bg-[#2A2D30] w-[240px]">
+      <div className="  flex-grow  flex flex-col    bg-[#2A2D30] max-w-[240px] min-w-[240px]">
         {Object.keys(post).length !== 0 &&
           post.map((item: any, index: number) => (
             <SecondbarServer
@@ -381,6 +381,7 @@ function page({ params }: { params: Employee }) {
             />
           ))}
       </div>
+      <ThirdBar urlParams1={urlParams1} />
     </div>
   );
 }

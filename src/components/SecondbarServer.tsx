@@ -153,7 +153,7 @@ function SecondbarServer({
         urlParams === post?.uid && (
           <div className="">
             <div className="   flex-col flex flex-grow ">
-              <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b-2 border-black">
+              <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b border-black">
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
                   {post.serverName}
                 </h1>

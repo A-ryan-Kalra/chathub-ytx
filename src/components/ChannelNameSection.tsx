@@ -73,6 +73,7 @@ function ChannelNameSection({
       // console.log(Object.keys(channelNameState).length);
       channelStatusChecked();
     }
+    // let channelNameSessionStorage: object = JSON.parse(sessionStorage.getItem("post") || "{}");
 
     setChannelState(channel.checkStatus);
   });
