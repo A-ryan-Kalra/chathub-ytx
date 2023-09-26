@@ -67,7 +67,9 @@ function ThirdBar({
   }
   return (
     <div
-      className={`bg-[#303339] flex flex-col flex-grow ${screen && "hidden"}`}
+      className={`bg-[#303339]  flex-col  flex-grow ${
+        screen && "hidden lg:flex"
+      }`}
     >
       <div className="flex py-[12.5px] px-3 items-center justify-between border-b-black border-b">
         <div className="flex items-center  justify-between space-x-3 w-fit">

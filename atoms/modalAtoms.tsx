@@ -8,7 +8,7 @@ export const sessionState = atom({
 });
 export const screenState = atom({
   key: "screenState",
-  default: false,
+  default: true,
 });
 
 export const postState = atom({

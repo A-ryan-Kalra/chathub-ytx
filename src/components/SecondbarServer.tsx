@@ -200,9 +200,9 @@ function SecondbarServer({
             </div>
 
             <div
-              className={`w-[240px] ${screen} z-10 fixed bottom-0 h-[54px] flex justify-between items-center p-1 bg-[#222429]`}
+              className={`lg:w-[240px] w-full  z-10 fixed bottom-0 h-[54px] flex justify-start lg:justify-between items-center p-1 bg-[#222429]`}
             >
-              <div className=" w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
+              <div className=" lg:w-full hover:bg-[#43454b] items-center p-1 flex h-fit rounded-lg ">
                 <div
                   className="w-[40px] flex-wrap h-[40px] cursor-pointer relative rounded-full"
                   onClick={() => {
@@ -236,7 +236,7 @@ function SecondbarServer({
                   <p className="text-[#868E97] text-[11px]">{name}</p>
                 </div>
               </div>
-              <div className=" h-full w-full  flex items-center justify-between">
+              <div className=" h-full lg:w-full  flex items-center justify-between">
                 <button
                   type="button"
                   className="p-[6px] hover:bg-[#43454b] rounded-lg"
