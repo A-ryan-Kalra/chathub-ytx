@@ -151,7 +151,7 @@ function ThirdBar({
           />
         </div>
       </div>
-      <div className="flex flex-col relative pb-5 flex-grow justify-end ">
+      <div className="flex flex-col relative pb-10 flex-grow justify-end ">
         <div className="max-h-[85vh] overflow-y-auto  ">
           {Object.keys(user).length !== 0 &&
             Object.values(user).map((i: Employee, index: number) => (
