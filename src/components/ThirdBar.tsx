@@ -152,7 +152,7 @@ function ThirdBar({
         </div>
       </div>
       <div className="flex flex-col relative pb-10 flex-grow justify-end ">
-        <div className="max-h-[85vh] overflow-y-auto  ">
+        <div className="max-h-[80vh] overflow-y-auto  ">
           {Object.keys(user).length !== 0 &&
             Object.values(user).map((i: Employee, index: number) => (
               <ChatSection channelSaved={channelSaved} user={i} key={index} />
@@ -161,7 +161,7 @@ function ThirdBar({
       </div>
       <form
         onSubmit={(event: FormEvent<HTMLFormElement>) => sendPost(event)}
-        className=" relative justify-center flex bottom-10 max-h-[70px] py-2 px-6 z-10 bg-[#313239] items-center pr-22"
+        className=" relative justify-center  flex bottom-10 max-h-[70px]  py-2 px-6 z-10 bg-[#313239] items-center pr-22"
       >
         <input
           type="text"

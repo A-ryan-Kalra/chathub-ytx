@@ -3,9 +3,9 @@ import React from "react";
 import { Employee } from "../../Types";
 
 function ChatSection({ channelSaved, user }: Employee) {
-  console.log(user);
+  // console.log(user);
   return (
-    <div className=" flex items-center ">
+    <div className=" flex justify-start items-start ">
       <div className="w-[5s5px]  rounded-full p-2 h ">
         <Image
           alt="user-img"
