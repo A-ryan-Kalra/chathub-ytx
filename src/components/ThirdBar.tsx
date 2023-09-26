@@ -110,15 +110,15 @@ function ThirdBar({
   return (
     <div
       className={`bg-[#303339] min-h-screen flex justify-between flex-col  flex-grow ${
-        screen && "hidden lg:flex lg:flex-col  lg:flex-grow"
+        screen && "hidden md:flex md:flex-col  md:flex-grow"
       }`}
     >
       <div className="flex py-[12.5px]  px-3 items-center justify-between border-b-black border-b">
-        <div className="flex items-center  justify-between space-x-3 w-fit">
+        <div className="flex items-center justify-between space-x-3 w-fit">
           <Icon
             icon="codicon:three-bars"
-            className={`text-white lg:hidden cursor-pointer`}
-            width={20}
+            className={`text-white md:hidden cursor-pointer`}
+            width={25}
             onClick={() => setScreen(true)}
           />
           <Icon
@@ -126,12 +126,12 @@ function ThirdBar({
             className="text-[#949BA4] hover:text-white"
             width={20}
           />
-          <h1 className="text-white cursor-default">{channel}</h1>
+          <h1 className="text-white  cursor-default">{channel}</h1>
         </div>
-        <div className="flex mr-2 ml-10 justify-around min-w-[200px] gap-3 items-center">
+        <div className="flex mr-2 ml-10 md:justify-around md:min-w-[200px] gap-3 items-center ">
           <Icon
             icon="solar:hashtag-chat-bold"
-            className="text-[#949BA4] hover:text-white"
+            className="text-[#949BA4] md:inline hidden hover:text-white"
             width={20}
           />
           <Icon
@@ -142,7 +142,7 @@ function ThirdBar({
           <Icon
             icon="typcn:pin"
             width={20}
-            className="text-[#949BA4] hover:text-white"
+            className="text-[#949BA4] md:inline hidden hover:text-white"
           />
           <Icon
             icon="tdesign:member"
