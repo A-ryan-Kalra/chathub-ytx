@@ -86,7 +86,7 @@ function ThirdBar({
           />
           <h1 className="text-white cursor-default">{channel}</h1>
         </div>
-        <div className="flex ml-10 justify-around min-w-[200px] gap-3 items-center">
+        <div className="flex mr-2 ml-10 justify-around min-w-[200px] gap-3 items-center">
           <Icon
             icon="solar:hashtag-chat-bold"
             className="text-[#949BA4] hover:text-white"
@@ -109,7 +109,7 @@ function ThirdBar({
           />
         </div>
       </div>
-      <div className="flex flex-col  flex-grow overflow-y-auto">
+      <div className="flex flex-col  flex-grow   overflow-y-auto">
         <ChatSection channelSaved={channelSaved} />
       </div>
       <div className=" relative justify-center flex flex-grow max-h-[70px] py-2 px-6  items-center pr-32">
