@@ -161,7 +161,7 @@ function ThirdBar({
       </div>
       <form
         onSubmit={(event: FormEvent<HTMLFormElement>) => sendPost(event)}
-        className=" relative justify-center  flex bottom-10 max-h-[70px]  py-2 px-6 z-10 bg-[#313239] items-center pr-22"
+        className=" relative justify-center  flex bottom-10 max-h-[70px]  py-2 px-6 z-10 bg-[#313239] flex-grow items-center pr-22"
       >
         <input
           type="text"
