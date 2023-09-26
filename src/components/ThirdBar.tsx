@@ -1,10 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  FormEvent,
+  FormEventHandler,
+  MouseEvent,
+  useEffect,
+  useState,
+} from "react";
 import { Icon } from "@iconify/react";
 import { useRecoilState } from "recoil";
 import { Employee } from "../../Types";
 import { channelName, screenState, sessionState } from "../../atoms/modalAtoms";
 import ChatSection from "./ChatSection";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  serverTimestamp,
+} from "firebase/firestore";
 import { database } from "../../firebaseConfig";
 import { error } from "console";
 
@@ -24,6 +37,7 @@ function ThirdBar({
   const [session, setSession] = useRecoilState<Employee>(sessionState);
   const [screen, setScreen] = useRecoilState<boolean>(screenState);
   //   console.log(session);
+  const [user, setUser] = useState<Employee>([]);
 
   useEffect(() => {
     channelNameState.forEach((i) => {
@@ -36,10 +50,38 @@ function ThirdBar({
     });
   });
 
-  console.log(screen);
+  useEffect(() => {
+    if (urlParams1 !== "") {
+      onSnapshot(
+        query(
+          collection(
+            database,
+            "Users",
+            urlParams,
+            "Channels",
+            urlParams1,
+            "Comments"
+          ),
+          orderBy("timestamp", "asc")
+        ),
+        (snapshot) => {
+          let arr: Employee = [];
 
-  async function sendPost() {
-    console.log("pressed");
+          snapshot.docs.map((i) => {
+            arr.push({ ...i.data() });
+          });
+
+          setUser(arr);
+        }
+      );
+    }
+  }, [database, urlParams1]);
+  // console.log(user);
+
+  async function sendPost(e: FormEvent<HTMLFormElement> | MouseEvent) {
+    e.preventDefault();
+
+    // console.log("pressed");
     if (urlParams1 !== "") {
       try {
         const docRef = await addDoc(
@@ -67,8 +109,8 @@ function ThirdBar({
   }
   return (
     <div
-      className={`bg-[#303339]  flex-col  flex-grow ${
-        screen && "hidden lg:flex"
+      className={`bg-[#303339] flex  flex-col  flex-grow ${
+        screen && "hidden lg:flex lg:flex-col  lg:flex-grow"
       }`}
     >
       <div className="flex py-[12.5px] px-3 items-center justify-between border-b-black border-b">
@@ -109,10 +151,16 @@ function ThirdBar({
           />
         </div>
       </div>
-      <div className="flex flex-col  flex-grow   overflow-y-auto">
-        <ChatSection channelSaved={channelSaved} />
+      <div className="flex flex-col  flex-grow justify-end  overflow-y-auto">
+        {Object.keys(user).length !== 0 &&
+          Object.values(user).map((i: Employee, index: number) => (
+            <ChatSection channelSaved={channelSaved} user={i} key={index} />
+          ))}
       </div>
-      <div className=" relative justify-center flex flex-grow max-h-[70px] py-2 px-6  items-center pr-32">
+      <form
+        onSubmit={(event: FormEvent<HTMLFormElement>) => sendPost(event)}
+        className=" relative justify-center flex flex-grow max-h-[70px] py-2 px-6  items-center pr-22"
+      >
         <input
           type="text"
           name=""
@@ -132,11 +180,11 @@ function ThirdBar({
               icon="mingcute:send-fill"
               className=" "
               width={25}
-              onClick={sendPost}
+              onClick={(event: MouseEvent) => sendPost(event)}
             />
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
