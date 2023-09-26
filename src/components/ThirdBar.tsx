@@ -82,7 +82,7 @@ function ThirdBar({
     e.preventDefault();
 
     // console.log("pressed");
-    if (urlParams1 !== "") {
+    if (urlParams1 !== "" && input !== "") {
       try {
         const docRef = await addDoc(
           collection(
@@ -109,11 +109,11 @@ function ThirdBar({
   }
   return (
     <div
-      className={`bg-[#303339] flex  flex-col  flex-grow ${
+      className={`bg-[#303339] min-h-screen flex justify-between flex-col  flex-grow ${
         screen && "hidden lg:flex lg:flex-col  lg:flex-grow"
       }`}
     >
-      <div className="flex py-[12.5px] px-3 items-center justify-between border-b-black border-b">
+      <div className="flex py-[12.5px]  px-3 items-center justify-between border-b-black border-b">
         <div className="flex items-center  justify-between space-x-3 w-fit">
           <Icon
             icon="codicon:three-bars"
@@ -151,15 +151,17 @@ function ThirdBar({
           />
         </div>
       </div>
-      <div className="flex flex-col  flex-grow justify-end  overflow-y-auto">
-        {Object.keys(user).length !== 0 &&
-          Object.values(user).map((i: Employee, index: number) => (
-            <ChatSection channelSaved={channelSaved} user={i} key={index} />
-          ))}
+      <div className="flex flex-col relative pb-5 flex-grow justify-end ">
+        <div className="max-h-[85vh] overflow-y-auto  ">
+          {Object.keys(user).length !== 0 &&
+            Object.values(user).map((i: Employee, index: number) => (
+              <ChatSection channelSaved={channelSaved} user={i} key={index} />
+            ))}
+        </div>
       </div>
       <form
         onSubmit={(event: FormEvent<HTMLFormElement>) => sendPost(event)}
-        className=" relative justify-center flex flex-grow max-h-[70px] py-2 px-6  items-center pr-22"
+        className=" relative justify-center flex bottom-5 max-h-[70px] py-2 px-6 z-10 bg-[#313239] items-center pr-22"
       >
         <input
           type="text"
