@@ -26,72 +26,22 @@ function ChannelNameSection({
 }) {
   const [channelState, setChannelState] = useState(false);
   const [url, setUrl] = useRecoilState<string>(setParamsUrl || "");
-  // const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
+
   const [secondParam, setSecondParam] = useState<string>("");
   const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
 
-  //   console.log(Object.keys(channelNameState).length);
   const [id1, setId1] = useState<string>("");
-  // console.log(url);
+
   const [channelNameState1, setChannelNameState1] = useState<Employee>([]);
-  // console.log(urlParams12);
-  // function channelStatusChecked(): void {
-  //   channelNameState1.map(async (item: Employee, index: number) => {
-  //     if (Object.keys(channelNameState1).length !== 0) {
-  //       try {
-  //         if (urlParams12 === item?.uid) {
-  //           // await updateDoc(
-  //           //   doc(database, "Users", url || "asd", "Channels", item?.uid),
-  //           //   {
-  //           //     checkStatus: true,
-  //           //   }
-  //           // );
-  //           setChannelState(true);
-  //           console.log("if");
 
-  //           // setChannelState(true);
-  //           // console.log("error bypassing");
-  //           // console.log(typeof item.uid);
-  //         } else {
-  //           // await updateDoc(
-  //           //   doc(database, "Users", url || "asds", "Channels", item?.uid),
-  //           //   {
-  //           //     checkStatus: false,
-  //           //   }
-  //           // );
-  //           setChannelState(false);
-  //           console.log("else");
-
-  //           // setChannelState(false);
-  //           // console.log("oooppps");
-  //         }
-  //       } catch (e) {
-  //         console.error("No document to update", e);
-  //         // setUrl("");
-  //         // setChannelNameState1([]);
-  //       }
-  //     }
-  //   });
-  // }
-  //   console.log(channel.checkStatus);
-  // console.log(urlParams12);
   useEffect(() => {
-    // if (Object.keys(channelNameState).length !== 0) {
-    //   // console.log("trespassing");
-    //   // console.log(Object.keys(channelNameState1).length);
-    //   // console.log(Object.keys(channelNameState).length);
-    //   channelStatusChecked();
-    // }
-    // let channelNameSessionStorage: object = JSON.parse(sessionStorage.getItem("post") || "{}");
-
     setChannelState(channel.uid === urlParams12);
   });
+
   useEffect(() => {
     setSecondParam(urlParams12);
 
     setChannelNameState1(channelNameState);
-    // console.log(Object.keys(channelNameState).length);
-    // console.log("error");
   }, []);
   const [screen, setScreen] = useRecoilState<boolean>(screenState);
 
@@ -103,7 +53,6 @@ function ChannelNameSection({
         channelState ? "bg-[#404348] rounded-md" : ""
       } px-2 py-[2px] items-center cursor-pointer group`}
       onClick={() => {
-        // channelStatusChecked();
         setScreen(false);
       }}
     >

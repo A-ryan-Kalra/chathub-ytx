@@ -172,7 +172,7 @@ function page({ params }: { params: Employee }) {
           screen
             ? "min-h-screen  bg-[#1F1E22] flex-col flex gap-2 max-w-[80px] min-w-[80px] overflow-y-auto"
             : "hidden lg:min-h-screen  lg:bg-[#1F1E22] lg:flex-col lg:flex lg:gap-2 lg:max-w-[80px] lg:min-w-[80px] lg:overflow-y-auto"
-        }  `}
+        }  pb-6`}
       >
         <Link
           href={"/channels/@me"}
@@ -381,7 +381,7 @@ function page({ params }: { params: Employee }) {
         className={`${
           screen
             ? "flex flex-col flex-grow bg-[#2A2D30] lg:max-w-[240px] min-w-[240px]"
-            : "hidden lg:flex lg:flex-col lg:flex-grow lg:bg-[#2A2D30] lg:lg:max-w-[240px] lg:min-w-[240px]"
+            : "hidden lg:flex lg:flex-col lg:flex-grow lg:bg-[#2A2D30] lg:max-w-[240px] lg:min-w-[240px]"
         }`}
       >
         {Object.keys(post).length !== 0 &&
@@ -398,7 +398,7 @@ function page({ params }: { params: Employee }) {
           ))}
       </div>
       {params !== undefined && params?.id[0] === "%40me" ? (
-        <ThirdBar urlParams1={urlParams1} urlParams={urlParams} />
+        <Me />
       ) : (
         <ThirdBar urlParams1={urlParams1} urlParams={urlParams} />
       )}

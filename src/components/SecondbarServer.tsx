@@ -42,14 +42,15 @@ function SecondbarServer({
   urlParams12: string;
 }) {
   // console.log(post);
-  const [isClient, setIsClient] = useState<boolean>(false);
-  // const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
+
+  const [urlParams01, setUrlParams] = useRecoilState<string>(setParam);
   const [url, setUrl] = useRecoilState<string>(setParamsUrl);
   const [session, setSession] = useRecoilState<Employee>(sessionState);
-  const [channelNameState, setChannelNameState] =
-    useRecoilState<Employee[]>(channelName);
+  const [channelNameState, setChannelNameState] = useRecoilState<Employee[]>(
+    channelName || []
+  );
   const [screen, setScreen] = useRecoilState<boolean>(screenState);
-
+  const [isClient, setIsClient] = useState<boolean>(false);
   // console.log(post.uid);
   // console.log(paramsId);
   // console.log(url);
@@ -57,10 +58,11 @@ function SecondbarServer({
   useEffect(() => {
     const paramsId: string = urlParams;
     setUrl(paramsId);
-
-    setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
   // useEffect(
   //   () =>
   //     onAuthStateChanged(auth, (userInfo) => {
@@ -73,44 +75,41 @@ function SecondbarServer({
 
   // if(urlParams.length)
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
+  useEffect(() => {
+    // setChannelNameState([]);
 
-  useEffect(
-    () =>
+    if (urlParams !== "") {
       onSnapshot(
         query(
-          collection(database, "Users", urlParams || "asdad", "Channels"),
+          collection(database, "Users", urlParams, "Channels"),
           orderBy("timestamp", "desc")
         ),
         (snapshot) => {
           if (!snapshot.empty) {
-            // console.log("asdsads");
             let events: any = [];
             snapshot.forEach((doc) => {
               events.push({ ...doc.data() });
-              // console.log(doc.data());
-              // console.log("offooo");
             });
             setChannelNameState(events);
-            // sessionStorage.setItem("post", JSON.stringify(events));
-            // console.log("Existed");
           } else {
             setChannelNameState([]);
             setUrlParams1("");
-            // console.log("clean up");
-            // setParamsUrl('')
-            // console.log(channelNameState);
-            // console.log(Object.keys(channelNameState).length);
           }
         }
-      ),
-    [urlParams, database]
-  );
-  // console.log(post);
+      );
+      setUrlParams1("");
+    } else {
+      setChannelNameState([]);
+      setUrlParams1("");
+      setUrlParams("");
+      // console.log("hello");
+    }
+  }, [database, urlParams]);
+
   // console.log(channelNameState);
-  // console.log(urlParams);
 
   async function addChannelName() {
-    const channelName = prompt("Enter a name");
+    const channelName = prompt("Give your channel a name");
     // console.log(channelName);
     if (channelName) {
       try {
@@ -149,7 +148,7 @@ function SecondbarServer({
 
   const router = useRouter();
   return (
-    <>
+    <div>
       {isClient &&
         Object.keys(post).length !== 0 &&
         urlParams === post?.uid && (
@@ -192,7 +191,7 @@ function SecondbarServer({
                         channel={channel}
                         id={channel.uid}
                         channelNameState={channelNameState}
-                        urlParams12={urlParams12}
+                        urlParams12={urlParams1}
                       />
                     ))}
                 </div>
@@ -271,7 +270,7 @@ function SecondbarServer({
             </div>
           </div>
         )}
-    </>
+    </div>
   );
 }
 
