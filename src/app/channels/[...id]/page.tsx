@@ -71,7 +71,7 @@ function page({ params }: { params: Employee }) {
     null
   );
 
-  const [post, setPost] = useRecoilState<Employee>(postState);
+  const [post, setPost] = useRecoilState<Employee>(postState || []);
   const [screen, setScreen] = useRecoilState<boolean>(screenState);
 
   function closeModal(setIsOpen: (isOpen: boolean) => void): void {
@@ -92,9 +92,9 @@ function page({ params }: { params: Employee }) {
       setSelectedFile(item.target!.result);
     };
   }
-  // console.log(selectedFile);
+
   const [loading, setLoading] = useState<boolean>(false);
-  // console.log(session);
+
   const sendPost = async () => {
     setLoading(true);
     const docRef: Employee = await addDoc(collection(database, "Users"), {
@@ -104,6 +104,7 @@ function page({ params }: { params: Employee }) {
       userimage: session?.user?.photoURL,
       serverName: server,
       timestamp: serverTimestamp(),
+      uniqueKey: session?.user?.uid,
     });
 
     setServer("");
@@ -132,14 +133,19 @@ function page({ params }: { params: Employee }) {
     const token: object = JSON.parse(sessionStorage.getItem("token") || "{}");
     let serPost: object = JSON.parse(sessionStorage.getItem("post") || "{}");
 
-    setPost(serPost);
+    setPost(serPost || {});
+
     setSession(token);
     if (Object.keys(token).length === 0) {
       router.push("/");
     }
+    if (urlParams === "%40me") {
+      setTrue(true);
+    } else {
+      setTrue(false);
+    }
   }, [urlParams]);
-  // console.log(Object.keys(params.id[0]).length);
-  // console.log(params.id);
+
   useEffect(() => {
     setUrlParams(params?.id[0] || "");
     setUrlParams1(params?.id[1] || "");
@@ -164,7 +170,7 @@ function page({ params }: { params: Employee }) {
 
     [database]
   );
-
+  const [isTrue, setTrue] = useState<boolean>(false);
   return (
     <div className="min-h-screen flex fixed inset-0">
       <div
@@ -179,9 +185,17 @@ function page({ params }: { params: Employee }) {
           className=" cursor-pointer ml-0 flex mt-3 mx-auto  group"
         >
           <div className="relative   h-full  w-1 flex  mr-[10px] ">
-            <div className="bg-white h-full duration-200 transition-all transform ease-in origin-center scale-y-[16%] group-hover:scale-y-[40%] my-auto rounded-r-[100%] w-2"></div>
+            <div
+              className={`bg-white h-full duration-200 transition-all transform ease-in origin-center scale-y-[16%] ${
+                isTrue ? "scale-y-[80%]" : "group-hover:scale-y-[40%]"
+              }  my-auto rounded-r-[100%] w-2`}
+            ></div>
           </div>
-          <div className="  hover:bg-[#5864F3] cursor-pointer hover:rounded-2xl  transition bg-[#303238]  mx-auto rounded-full flex items-center w-[50px] h-[50px] p-2">
+          <div
+            className={` ${
+              isTrue && "bg-[#5864F3]"
+            } hover:bg-[#5864F3]  active:scale-x-90 cursor-pointer hover:rounded-2xl  transition bg-[#303238]  mx-auto rounded-full flex items-center w-[50px] h-[50px] p-2`}
+          >
             <img src="/discordnew.png" className="w-[45px] p-1" alt="" />
           </div>
         </Link>
@@ -192,9 +206,9 @@ function page({ params }: { params: Employee }) {
             (item: any, index: number) => (
               <NavbarServer
                 key={index}
-                post={item}
+                post={item || []}
                 urlParams={urlParams}
-                id={item?.uid}
+                id={item?.uid || ""}
               />
             )
             // console.log(item)
@@ -350,13 +364,10 @@ function page({ params }: { params: Employee }) {
                       </button>
 
                       {loading ? (
-                        <button
-                          type="button"
-                          className="flex relative py-1 px-4 tracking-wider h-10 w-10 items-center  transition-all transform ease-out duration-[15000ms] rotate-[1440deg] font-semibold  cursor-none outline-none justify-center  rounded-full "
-                        >
-                          <button className="absolute inset-0 ease-in transform transition-all cursor-default outline-none rounded-full bg-[#5865F2] ">
+                        <button className="flex relative  py-1 px-4 tracking-wider h-10 w-10 items-center  transition-all transform ease-out duration-[15000ms] rotate-[1440deg] font-semibold  cursor-none outline-none justify-center  rounded-full ">
+                          <div className="absolute inset-0  ease-in flex items-center justify-center transform transition-all cursor-default outline-none rounded-full bg-[#5865F2] ">
                             ⏳
-                          </button>
+                          </div>
                         </button>
                       ) : (
                         <button
@@ -376,31 +387,32 @@ function page({ params }: { params: Employee }) {
           </Dialog>
         </Transition>
       </div>
-
-      <div
-        className={`${
-          screen
-            ? "flex flex-col flex-grow bg-[#2A2D30] lg:max-w-[240px] min-w-[240px]"
-            : "hidden lg:flex lg:flex-col lg:flex-grow lg:bg-[#2A2D30] lg:max-w-[240px] lg:min-w-[240px]"
-        }`}
-      >
-        {Object.keys(post).length !== 0 &&
-          post.map((item: any, index: number) => (
-            <SecondbarServer
-              serverName={serverNames}
-              post={item}
-              id={item?.uid}
-              key={index}
-              urlParams={urlParams}
-              urlParams12={urlParams1}
-              // setUrlParams1={setUrlParams1}
-            />
-          ))}
-      </div>
+      {params !== undefined && params?.id[0] !== "%40me" && (
+        <div
+          className={`${
+            screen
+              ? "flex flex-col flex-grow bg-[#2A2D30] lg:max-w-[240px] min-w-[240px]"
+              : "hidden lg:flex lg:flex-col lg:flex-grow lg:bg-[#2A2D30] lg:max-w-[240px] lg:min-w-[240px]"
+          }`}
+        >
+          {Object.keys(post).length !== 0 &&
+            post.map((item: any, index: number) => (
+              <SecondbarServer
+                serverName={serverNames}
+                post={item}
+                id={item?.uid}
+                key={index}
+                urlParams={urlParams}
+                urlParams12={urlParams1}
+                // setUrlParams1={setUrlParams1}
+              />
+            ))}
+        </div>
+      )}
       {params !== undefined && params?.id[0] === "%40me" ? (
         <Me />
       ) : (
-        <ThirdBar urlParams1={urlParams1} urlParams={urlParams} />
+        <ThirdBar urlParams1={urlParams1} post={post} urlParams={urlParams} />
       )}
     </div>
   );

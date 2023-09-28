@@ -8,28 +8,42 @@ import React, {
 import { Icon } from "@iconify/react";
 import { useRecoilState } from "recoil";
 import { Employee } from "../../Types";
-import { channelName, screenState, sessionState } from "../../atoms/modalAtoms";
+import {
+  channelName,
+  screenState,
+  sessionState,
+  userDeleted1,
+} from "../../atoms/modalAtoms";
 import ChatSection from "./ChatSection";
 import {
   addDoc,
   collection,
+  doc,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
+  updateDoc,
 } from "firebase/firestore";
 import { database } from "../../firebaseConfig";
 import { error } from "console";
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { Rubik_Wet_Paint } from "next/font/google";
 
+const inter = Rubik_Wet_Paint({ subsets: ["latin"], weight: "400" });
 function ThirdBar({
   urlParams1,
+  post,
   urlParams,
 }: {
   urlParams1: string;
   urlParams: string;
+  post: Employee;
 }) {
-  const [channelNameState, setChannelNameState] =
-    useRecoilState<Employee[]>(channelName);
+  const [channelNameState, setChannelNameState] = useRecoilState<Employee[]>(
+    channelName || []
+  );
 
   const [channel, setChannel] = useState<string>("");
   const [channelSaved, setChannelsaved] = useState<Employee>([]);
@@ -39,30 +53,42 @@ function ThirdBar({
 
   const [session, setSession] = useRecoilState<Employee>(sessionState);
   const [screen, setScreen] = useRecoilState<boolean>(screenState);
-  // console.log(session);
   const [user, setUser] = useState<Employee>([]);
+  const [userDeleted, setUserDeleted] = useRecoilState<Employee>(
+    userDeleted1 || {}
+  );
   const [isClient, setIsClient] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
+  const router = useRouter();
 
   useEffect(() => {
-    channelNameState.forEach((i) => {
-      if (i.uid === urlParams1) {
-        setChannel(i?.channelName);
-        setChannelsaved(i);
-      } else if (urlParams1 === "") {
-        setChannel("");
-      }
-    });
+    if (Object.keys(channelNameState).length !== 0) {
+      channelNameState.forEach((i) => {
+        if (i.uid === urlParams1) {
+          setChannel(i?.channelName || "");
+          setChannelsaved(i || []);
+        } else if (urlParams1 === "") {
+          setChannel("");
+          setChannelsaved([]);
+        }
+      });
+    } else {
+      setChannelNameState([]);
+      setChannelsaved([]);
+      setChannel("");
+    }
     setName(session?.user?.displayName.split(" ")[0]);
-  });
+  }, [urlParams1, urlParams]);
+
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
     setIsClient(true);
-  }, []);
-
-  // console.log(name);
-
+    if (Object.keys(post).length === 0) {
+      router.push("/channels/@me");
+    }
+  });
+  // console.log(user);
   useEffect(() => {
     if (urlParams1 !== "") {
       onSnapshot(
@@ -84,7 +110,8 @@ function ThirdBar({
             arr.push({ ...i.data() });
           });
 
-          setUser(arr);
+          setUser(arr || []);
+          setUserDeleted(arr || []);
         }
       );
       setList([]);
@@ -92,7 +119,18 @@ function ThirdBar({
       setUser([]);
     }
   }, [database, urlParams1]);
-  // console.log(list);
+  // console.log(Object.keys(channelSaved).length);
+  const time = moment().calendar();
+
+  useEffect(() => {
+    if (urlParams1 === "") {
+      const timer = setTimeout(() => {
+        setList([]);
+        // setLoading(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [list]);
 
   async function sendPost(e: FormEvent<HTMLFormElement> | MouseEvent) {
     e.preventDefault();
@@ -119,8 +157,25 @@ function ThirdBar({
             name: session?.user?.displayName,
             email: session?.user?.email,
             userImg: session?.user?.photoURL,
-            text: arr,
+            text: arr || "",
+            posttime: time,
+            uniqueKey: session?.user?.uid,
+
             timestamp: serverTimestamp(),
+          }
+        );
+        await updateDoc(
+          doc(
+            database,
+            "Users",
+            urlParams,
+            "Channels",
+            urlParams1,
+            "Comments",
+            docRef.id
+          ),
+          {
+            uid: docRef.id,
           }
         );
       } catch (e) {
@@ -148,7 +203,9 @@ function ThirdBar({
             width={20}
           />
           <h1 className="text-white -m-1 cursor-default">
-            {isClient && channel !== "" ? channel : "Hello, " + name}
+            {isClient && channel !== ""
+              ? channel || ""
+              : "Hello, " + name || ""}
           </h1>
         </div>
         <div className="flex mr-2 ml-10 md:justify-around md:min-w-[200px] gap-3 items-center ">
@@ -176,23 +233,52 @@ function ThirdBar({
       </div>
       <div className="flex flex-col relative pb-10 flex-grow justify-end ">
         <div className="max-h-[80vh] overflow-y-auto  ">
+          {Object.keys(list).length === 0 && urlParams1 === "" && (
+            <div className="flex justify-center flex-col items-center">
+              <p
+                className={`text-[40px] pb-5 text-center text-[#77e6ca] ${inter.className}`}
+              >
+                Write down something disappearing...
+              </p>
+              <div
+                className={`flex items-center justify-center bg-gradient-to-br from-[#a75bc3] to-[#366bb0] rounded-2xl`}
+              >
+                <Icon
+                  // icon="game-icons:magic-gate"
+                  icon="game-icons:magic-portal"
+                  width={350}
+                  height={350}
+                  className="bg-cover rounded-2xl pb-2 text-[#c2c663]"
+                />
+                {/* <img
+                src={"/disappear.svg"}
+                alt="logo"
+                width={450}
+                height={450}
+                className="text-white"
+              /> */}
+              </div>
+            </div>
+          )}
           {Object.keys(user).length !== 0 && isClient && urlParams1 !== ""
             ? Object.values(user).map((i: Employee, index: number) => (
                 <ChatSection
-                  channelSaved={channelSaved}
-                  user={i}
+                  channelSaved={channelSaved || []}
+                  user={i || []}
                   key={index}
                   urlParams1={urlParams1}
+                  urlParams={urlParams}
                 />
               ))
             : Object.keys(list).length !== 0 &&
               isClient &&
               list.map((item: string, index) => (
                 <ChatSection
-                  channelSaved={channelSaved}
-                  user={item}
+                  channelSaved={channelSaved || []}
+                  user={item || ""}
                   key={index}
                   urlParams1={urlParams1}
+                  urlParams={urlParams}
                 />
               ))}
         </div>
@@ -208,8 +294,10 @@ function ThirdBar({
           onChange={(e) => setInput(e.target.value)}
           value={input}
           className="outline-none text-white text-[16px] placeholder:text-[16px]  p-2 bg-[#383A40] w-full h-10 rounded-l-lg"
-          placeholder={`Message #${
-            channelSaved?.channelName ? channelSaved?.channelName : "ToMe"
+          placeholder={`${
+            channelSaved?.channelName
+              ? "Message #" + channelSaved?.channelName || ""
+              : "Welcome to Wall of Poof"
           }`}
         />
 

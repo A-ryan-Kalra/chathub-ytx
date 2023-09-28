@@ -109,25 +109,6 @@ function InternalSideBar() {
     }
   }, []);
 
-  // useEffect(
-  //   () =>
-  //     onSnapshot(
-  //       query(collection(database, "Users"), orderBy("timestamp", "desc")),
-  //       (snapshot) => {
-  //         let events: any = [];
-  //         snapshot.forEach((doc) => {
-  //           events.push({ ...doc.data() });
-  //           // console.log(doc.data());
-  //         });
-  //         setPost(events);
-  //         sessionStorage.setItem("post", JSON.stringify(events));
-
-  //         // console.log(post[0]?.data());
-  //       }
-  //     ),
-  //   [database]
-  // );
-
   return (
     <div className="min-h-screen flex bg-[#313338] fixed inset-0">
       <div className="min-h-screen  bg-[#1F1E22] flex-col flex gap-2 w-[75px] ">
@@ -143,12 +124,9 @@ function InternalSideBar() {
         <hr className="w-[50%]   mx-auto" />
 
         {Object.keys(post).length !== 0 &&
-          post.map(
-            (item: any, index: number) => (
-              <NavbarServer key={index} post={item} />
-            )
-            // console.log(item)
-          )}
+          post.map((item: any, index: number) => (
+            <NavbarServer key={index} post={item} />
+          ))}
 
         <div
           className="  cursor-pointer w-[50px] items-center rounded-full bg-[#313338] transform transition ease-out hover:bg-[#56A65A] flex hover:rounded-2xl mx-auto h-[50px] justify-center group"

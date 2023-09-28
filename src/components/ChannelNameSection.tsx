@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { Employee } from "../../Types";
-import { doc, updateDoc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { database } from "../../firebaseConfig";
 import { useRecoilState } from "recoil";
 import {
@@ -9,6 +18,7 @@ import {
   setParam,
   setParam1,
   setParamsUrl,
+  userDeleted1,
 } from "../../atoms/modalAtoms";
 import Link from "next/link";
 import { error } from "console";
@@ -31,6 +41,9 @@ function ChannelNameSection({
   const [urlParams, setUrlParams] = useRecoilState<string>(setParam);
 
   const [id1, setId1] = useState<string>("");
+  const [userDeleted, setUserDeleted] = useRecoilState<Employee>(
+    userDeleted1 || {}
+  );
 
   const [channelNameState1, setChannelNameState1] = useState<Employee>([]);
 
@@ -38,6 +51,25 @@ function ChannelNameSection({
     setChannelState(channel.uid === urlParams12);
   });
 
+  // console.log(userDeleted);
+  async function deleteChannel() {
+    Object.keys(userDeleted).length !== 0 &&
+      userDeleted.map(async (item: Employee, index: number) => {
+        await deleteDoc(
+          doc(
+            database,
+            "Users",
+            urlParams,
+            "Channels",
+            urlParams12,
+            "Comments",
+            item?.uid
+          )
+        );
+      });
+
+    await deleteDoc(doc(database, "Users", urlParams, "Channels", urlParams12));
+  }
   useEffect(() => {
     setSecondParam(urlParams12);
 
@@ -63,12 +95,12 @@ function ChannelNameSection({
           width={20}
         />
         <h2 className={` ${channelState ? "text-white" : "text-[#949BA4]"}`}>
-          {channel?.channelName}
+          {channel?.channelName || ""}
         </h2>
       </span>
       <span className="flex items-center  text-[#80828F] space-x-1 mr-[2px]  ">
         <Icon
-          className={`${
+          className={`active:scale-75  ${
             channelState
               ? "hover:text-white inline-block"
               : "  group-hover:inline-block hidden hover:text-white "
@@ -76,15 +108,18 @@ function ChannelNameSection({
           icon="material-symbols:person-add-rounded"
           width={17}
         />
-        <Icon
-          icon="icon-park-solid:setting"
-          className={`${
-            channelState
-              ? "hover:text-white inline-block"
-              : "  group-hover:inline-block hidden hover:text-white "
-          }  `}
-          width={13}
-        />
+        {channelState && (
+          <Icon
+            onClick={deleteChannel}
+            icon="bi:trash-fill"
+            className={`${
+              channelState
+                ? "hover:text-red-600 text-white inline-block"
+                : "  group-hover:inline-block hidden hover:text-white "
+            }  active:scale-75`}
+            width={13}
+          />
+        )}
       </span>
     </Link>
   );

@@ -41,19 +41,14 @@ function SecondbarServer({
   urlParams: string;
   urlParams12: string;
 }) {
-  // console.log(post);
-
   const [urlParams01, setUrlParams] = useRecoilState<string>(setParam);
-  const [url, setUrl] = useRecoilState<string>(setParamsUrl);
+  const [url, setUrl] = useRecoilState<string>(setParamsUrl || "");
   const [session, setSession] = useRecoilState<Employee>(sessionState);
   const [channelNameState, setChannelNameState] = useRecoilState<Employee[]>(
     channelName || []
   );
   const [screen, setScreen] = useRecoilState<boolean>(screenState);
   const [isClient, setIsClient] = useState<boolean>(false);
-  // console.log(post.uid);
-  // console.log(paramsId);
-  // console.log(url);
 
   useEffect(() => {
     const paramsId: string = urlParams;
@@ -73,11 +68,8 @@ function SecondbarServer({
   // );
   // console.log(urlParams.length);
 
-  // if(urlParams.length)
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
   useEffect(() => {
-    // setChannelNameState([]);
-
     if (urlParams !== "") {
       onSnapshot(
         query(
@@ -102,15 +94,12 @@ function SecondbarServer({
       setChannelNameState([]);
       setUrlParams1("");
       setUrlParams("");
-      // console.log("hello");
     }
   }, [database, urlParams]);
 
-  // console.log(channelNameState);
-
   async function addChannelName() {
     const channelName = prompt("Give your channel a name");
-    // console.log(channelName);
+
     if (channelName) {
       try {
         const docRef = await addDoc(
@@ -119,7 +108,7 @@ function SecondbarServer({
             channelName: channelName,
             serverName: post?.serverName,
             timestamp: serverTimestamp(),
-            checkStatus: false,
+            uniqueKey: post?.uniqueKey,
           }
         );
         await updateDoc(
@@ -128,13 +117,12 @@ function SecondbarServer({
             uid: docRef.id,
           }
         );
-        // console.log(docRef);
       } catch (e) {
         console.error("Error adding document", e);
       }
     }
   }
-  // console.log(session);
+
   const [name, setName] = useState<string>("");
   const [name1, setName1] = useState<string>("");
 
@@ -154,9 +142,14 @@ function SecondbarServer({
         urlParams === post?.uid && (
           <div className="">
             <div className="   flex-col flex flex-grow ">
-              <div className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b border-black">
+              <div
+                className="flex justify-between hover:bg-[#3a3c42] cursor-pointer p-3 border-b border-black"
+                onClick={() => {
+                  setScreen(false);
+                }}
+              >
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
-                  {post.serverName}
+                  {post?.serverName || ""}
                 </h1>
                 <Icon
                   icon="mdi:chevron-down"
@@ -188,10 +181,10 @@ function SecondbarServer({
                     channelNameState.map((channel: Employee, index: number) => (
                       <ChannelNameSection
                         key={index}
-                        channel={channel}
-                        id={channel.uid}
-                        channelNameState={channelNameState}
-                        urlParams12={urlParams1}
+                        channel={channel || []}
+                        id={channel.uid || ""}
+                        channelNameState={channelNameState || []}
+                        urlParams12={urlParams1 || ""}
                       />
                     ))}
                 </div>
@@ -222,7 +215,7 @@ function SecondbarServer({
                   }}
                 >
                   <Image
-                    src={session?.user?.photoURL}
+                    src={(isClient && session?.user?.photoURL) || ""}
                     fill
                     alt="logo"
                     className="rounded-full object-contain"

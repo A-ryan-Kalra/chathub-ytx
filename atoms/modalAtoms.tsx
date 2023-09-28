@@ -6,9 +6,17 @@ export const sessionState = atom({
   key: "sessionState",
   default: {},
 });
+export const userDeleted1 = atom({
+  key: "userDeleted1",
+  default: {},
+});
 export const screenState = atom({
   key: "screenState",
   default: true,
+});
+export const setName1 = atom({
+  key: "setName1",
+  default: "",
 });
 
 export const postState = atom({

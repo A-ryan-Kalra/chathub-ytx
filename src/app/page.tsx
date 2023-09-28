@@ -15,8 +15,8 @@ import NavbarServer from "@/components/NavbarServer";
 import { onAuthStateChanged } from "firebase/auth";
 
 export default function Home() {
-  const [session, setSession] = useRecoilState<object>(sessionState);
-  const [post, setPost] = useRecoilState<Employee>(postState);
+  const [session, setSession] = useRecoilState<object>(sessionState || []);
+  const [post, setPost] = useRecoilState<Employee>(postState || []);
 
   // console.log(session);
 
@@ -29,7 +29,11 @@ export default function Home() {
   }, []);
 
   const router = useRouter();
-
+  // useEffect(() => {
+  //   onAuthStateChanged(auth, (user) => {
+  //     console.log(user);
+  //   });
+  // }, []);
   // console.log(Object.keys(session).length);
   useEffect(
     () =>

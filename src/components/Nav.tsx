@@ -28,20 +28,18 @@ const Nav = () => {
   const googleProvider = new GoogleAuthProvider();
 
   const [session, setSession] = useRecoilState<Employee>(sessionState);
-  // console.log(Object.keys(session).length);
 
   async function singInWithGoogle() {
     await signInWithPopup(auth, googleProvider)
       .then((details) => {
         setSession(details);
-        // console.log(typeof details);
+
         sessionStorage.setItem("token", JSON.stringify(details));
         router.push("/channels/@me");
       })
       .catch((err) => alert(err));
   }
-  // console.log(Object.keys(session).length);
-  // console.log(session);
+
   function openModal(setIsOpen: (isOpen: boolean) => void) {
     setIsOpen(true);
   }
@@ -94,7 +92,6 @@ const Nav = () => {
     setIsSelected: (isSelected: boolean) => void,
     index: number
   ): void {
-    // console.log(newArr);
     const Arr1: ArrProps1[] = newArr.map((item) => {
       if (item.id === index) {
         return { ...item, checked: !item.checked };

@@ -20,6 +20,7 @@ function NavbarServer({ post, id, urlParams }: Employee) {
 
   const [url, setUrl] = useState<string>("");
   const [id1, setId1] = useState<string>("");
+
   useEffect(() => {
     setIsClient(true);
     setUrl(location[2]);
@@ -27,13 +28,6 @@ function NavbarServer({ post, id, urlParams }: Employee) {
   });
 
   useEffect(() => {
-    // const setServer: boolean = JSON.parse(
-    //   sessionStorage.getItem("setServer") || "false"
-    // );
-    // const server: string = JSON.parse(
-    //   sessionStorage.getItem("serverName") || "123"
-    // );
-
     if (id1 === urlParams) {
       setTimeout(() => {
         setSelectedServer(true);
@@ -41,7 +35,6 @@ function NavbarServer({ post, id, urlParams }: Employee) {
     } else {
       setSelectedServer(false);
     }
-    // setServerNames(urlParams);
   });
 
   let location: Employee = window.location.pathname.split("/");
@@ -49,15 +42,7 @@ function NavbarServer({ post, id, urlParams }: Employee) {
   return (
     <Link href={`/channels/${post.uid}`}>
       {isClient && Object.keys(post).length !== 0 && (
-        <div
-          className=" w-full cursor-pointer flex  mx-auto h-[50px] group"
-          onClick={() => {
-            // sessionStorage.setItem("setServer", JSON.stringify(true));
-            // sessionStorage.setItem("serverName", JSON.stringify(post.uid));
-            // router.push(`/channels/${post.uid}`);
-            // setServer();
-          }}
-        >
+        <div className=" w-full active:scale-y-90 cursor-pointer flex  mx-auto h-[50px] group">
           <div className="relative  h-full  w-1 flex  mr-2 ">
             <div
               className={`bg-white h-full duration-[100] transition-all transform ease-in origin-center scale-y-[16%] ${
@@ -68,7 +53,11 @@ function NavbarServer({ post, id, urlParams }: Employee) {
             ></div>
           </div>
           <Image
-            src={post?.serverImage}
+            src={
+              post?.serverImage
+                ? post?.serverImage
+                : "/20-200938_discord-png.webp"
+            }
             width={50}
             height={50}
             className="rounded-full  hover:rounded-2xl w-[50px] h-[50px] object-cover transition"

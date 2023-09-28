@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
@@ -28,9 +29,6 @@ function Me() {
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * images.length);
     setImg(images[randomIndex]);
-
-    console.log(randomIndex);
-    // console.log(images[randomIndex]);
   }, []);
   useEffect(() => {
     setSession(session);
