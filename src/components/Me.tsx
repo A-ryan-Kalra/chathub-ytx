@@ -36,7 +36,7 @@ function Me({ urlParams }: { urlParams: string }) {
     setIsClient(true);
   }, [urlParams]);
   return (
-    <div className="flex  flex-grow md:bg-gradient-to-br max-sm:bg-gradient-to-t from-[#475FEC] to-fuchsia-600 z-[-1]">
+    <div className="flex  flex-grow md:bg-gradient-to-br bg-gradient-to-t from-[#475FEC] to-fuchsia-600 z-[-1]">
       {isClient && (
         <p
           className={`cursor-default text-white z-[1] ml-2 absolute top-10 md:text-[50px] sm:text-[33px] text-[26px]  ${inter.className}`}
