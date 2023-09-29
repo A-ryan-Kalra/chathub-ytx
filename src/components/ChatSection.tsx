@@ -11,7 +11,7 @@ import { deleteDoc, doc } from "firebase/firestore";
 
 function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
   const [isClient, setIsClient] = useState<boolean>(false);
-  const [session, setSession] = useRecoilState<Employee>(sessionState);
+  const [session, setSession] = useRecoilState<Employee>(sessionState || []);
   const [loading, setLoading] = useState<boolean>(true);
   const [loading1, setLoading1] = useState<boolean>(true);
   const [name, setName] = useRecoilState<string>(setName1);
@@ -23,7 +23,6 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
   let future = now.getHours() + 1;
 
   useEffect(() => {
-    setIsClient(true);
     setSession(session);
   }, [database]);
 
@@ -39,6 +38,8 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
   console.log(session.user.uid);
 
   useEffect(() => {
+    setIsClient(true);
+
     if (urlParams1 === "") {
       const timer = setInterval(() => {
         setDissappear(false);
@@ -97,42 +98,47 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
           className={` flex justify-between hover:bg-[#2A2D30] p-1 relative py-3 items-center `}
         >
           <div className="flex items-center justify-center">
-            <div className="w-[55px]  rounded-full p-[6px] h ">
-              <Image
-                alt="user-img"
-                src={
-                  urlParams1 !== ""
-                    ? user?.userImg || ""
-                    : session?.user?.photoURL || ""
-                }
-                width={45}
-                height={45}
-                className="rounded-full"
-              />
-            </div>
-
-            <div className="flex-col flex  mt-1 px-1 text-left item">
-              <div className="flex items-center space-x-3">
-                <p className="text-[#40dacb] hover:underline cursor-default">
-                  {urlParams1 !== "" ? user?.name : session?.user?.displayName}
-                </p>
-                <p className="text-[11.5px] cursor-default mt-[1px] text-[#949BA4]">
-                  {user?.posttime || ""}
+            {isClient && (
+              <div className="w-[55px]  rounded-full p-[6px] h ">
+                <Image
+                  alt="user-img"
+                  src={
+                    urlParams1 !== ""
+                      ? user?.userImg || ""
+                      : session?.user?.photoURL || ""
+                  }
+                  width={45}
+                  height={45}
+                  className="rounded-full"
+                />
+              </div>
+            )}
+            {isClient && (
+              <div className="flex-col flex  mt-1 px-1 text-left item">
+                <div className="flex items-center space-x-3">
+                  <p className="text-[#40dacb] hover:underline cursor-default">
+                    {urlParams1 !== ""
+                      ? user?.name || ""
+                      : session?.user?.displayName || ""}
+                  </p>
+                  <p className="text-[11.5px] cursor-default mt-[1px] text-[#949BA4]">
+                    {user?.posttime || ""}
+                  </p>
+                </div>
+                <p
+                  className={`w-full  mr-auto ${
+                    loading
+                      ? "text-gray-500   transform transition-all ease-in w-full  flex-wrap break-words"
+                      : "text-[#D5D6DA] text-[15px]  flex-wrap break-words"
+                  } `}
+                >
+                  {urlParams1 !== "" ? user?.text || "" : user}
                 </p>
               </div>
-              <p
-                className={`w-full  mr-auto ${
-                  loading
-                    ? "text-gray-500   transform transition-all ease-in w-full  flex-wrap break-words"
-                    : "text-[#D5D6DA] text-[15px]  flex-wrap break-words"
-                } `}
-              >
-                {urlParams1 !== "" ? user?.text || "" : user}
-              </p>
-            </div>
+            )}
           </div>
           <div className="flex items-center p-2 rounded-full hover:bg-[#4a2b2b] cursor-pointer">
-            {session?.user?.uid === user?.uniqueKey && (
+            {session?.user?.uid === user?.uniqueKey && isClient && (
               <Icon
                 onClick={deleteChannel}
                 icon="bi:trash-fill"

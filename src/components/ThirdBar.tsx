@@ -135,7 +135,7 @@ function ThirdBar({
   async function sendPost(e: FormEvent<HTMLFormElement> | MouseEvent) {
     e.preventDefault();
 
-    if (urlParams1 === "") {
+    if (urlParams1 === "" && input.trim()) {
       setList((prev) => [...prev, input]);
     }
 
@@ -186,7 +186,7 @@ function ThirdBar({
   return (
     <div
       className={`bg-[#303339] min-h-screen flex justify-between flex-col  flex-grow ${
-        screen && "hidden md:flex md:flex-col  md:flex-grow"
+        screen && "hidden lg:flex lg:flex-col  lg:flex-grow"
       }`}
     >
       <div className="flex py-[14.5px]  px-3 items-center justify-between border-b-black border-b">
@@ -297,7 +297,7 @@ function ThirdBar({
           placeholder={`${
             channelSaved?.channelName
               ? "Message #" + channelSaved?.channelName || ""
-              : "Welcome to Wall of Poof"
+              : "Welcome to The Great Wall of Poof"
           }`}
         />
 

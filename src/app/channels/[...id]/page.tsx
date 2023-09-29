@@ -410,7 +410,7 @@ function page({ params }: { params: Employee }) {
         </div>
       )}
       {params !== undefined && params?.id[0] === "%40me" ? (
-        <Me />
+        <Me urlParams={urlParams} />
       ) : (
         <ThirdBar urlParams1={urlParams1} post={post} urlParams={urlParams} />
       )}

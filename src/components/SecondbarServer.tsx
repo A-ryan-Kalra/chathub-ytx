@@ -151,11 +151,24 @@ function SecondbarServer({
                 <h1 className="w-full text-white text-[14px] font-semibold tracking-wide">
                   {post?.serverName || ""}
                 </h1>
-                <Icon
-                  icon="mdi:chevron-down"
-                  width={25}
-                  className="text-white"
-                />
+                {urlParams1 ? (
+                  <Icon
+                    icon="mdi:chevron-down"
+                    width={25}
+                    className="text-white"
+                  />
+                ) : (
+                  <div className="md:px-1 px-2 flex items-center justify-center rounded-full bg-gradient-to-br from-[#a75bc3] to-[#366bb0] bg-white">
+                    <p className="md:text-[12px] lg:hidden text-white flex items-center">
+                      PoofBar
+                    </p>
+                    <Icon
+                      icon="mdi:chevron-down"
+                      width={20}
+                      className="text-white"
+                    />
+                  </div>
+                )}
               </div>
               <span className="flex items-center justify-between cursor-pointer  p-1 py-3">
                 <span className="flex items-center  group ">

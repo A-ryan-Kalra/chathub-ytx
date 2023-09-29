@@ -7,7 +7,7 @@ import { sessionState } from "../../atoms/modalAtoms";
 import { IBM_Plex_Mono } from "next/font/google";
 
 const inter = IBM_Plex_Mono({ weight: "400", subsets: ["latin"] });
-function Me() {
+function Me({ urlParams }: { urlParams: string }) {
   const [session, setSession] = useRecoilState<Employee>(sessionState);
   const [isClient, setIsClient] = useState<boolean>(false);
   const [img, setImg] = useState<string>("false");
@@ -29,28 +29,30 @@ function Me() {
   useEffect(() => {
     let randomIndex = Math.floor(Math.random() * images.length);
     setImg(images[randomIndex]);
+    setIsClient(true);
   }, []);
   useEffect(() => {
     setSession(session);
     setIsClient(true);
-  });
+  }, [urlParams]);
   return (
-    <div className="flex  relative flex-grow bg-gradient-to-r from-[#475FEC] to-fuchsia-600 z-[-1]">
-      <p
-        className={`cursor-default text-white z-[1] ml-2 absolute top-10 text-[50px]  ${inter.className}`}
-      >
-        {isClient &&
-          "Welcome" + " " + session?.user?.displayName.split(" ").join("_")}
-      </p>
-
-      <div className=" ml-auto flex z-[0] justify-end flex-col  items-end">
+    <div className="flex  flex-grow md:bg-gradient-to-br max-sm:bg-gradient-to-t from-[#475FEC] to-fuchsia-600 z-[-1]">
+      {isClient && (
+        <p
+          className={`cursor-default text-white z-[1] ml-2 absolute top-10 md:text-[50px] sm:text-[33px] text-[26px]  ${inter.className}`}
+        >
+          Welcome {session?.user?.displayName.split(" ").join("_")}
+        </p>
+      )}
+      <div className="relative   items-end  ml-auto flex z-[0]  justify-end   ">
         {isClient && (
-          <Image
+          <img
             alt="home"
-            className=" object-contain "
+            className="  w-[500px] md:w-[680px] md:h-[480px] sm:h-[400px] sm:w-[600px] h-[200px] lg:w-[900px] lg:h-[600px]  "
             src={img}
-            width={900}
-            height={600}
+
+            // width={900}
+            // height={600}
           />
         )}
       </div>
