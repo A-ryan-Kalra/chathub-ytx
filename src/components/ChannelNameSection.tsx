@@ -22,6 +22,7 @@ import {
 } from "../../atoms/modalAtoms";
 import Link from "next/link";
 import { error } from "console";
+import { useRouter } from "next/navigation";
 
 function ChannelNameSection({
   channel,
@@ -46,12 +47,15 @@ function ChannelNameSection({
   );
 
   const [channelNameState1, setChannelNameState1] = useState<Employee>([]);
+  const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
 
   useEffect(() => {
     setChannelState(channel.uid === urlParams12);
   });
 
-  // console.log(userDeleted);
+  // console.log(channelNameState);
+  const router = useRouter();
+
   async function deleteChannel() {
     Object.keys(userDeleted).length !== 0 &&
       userDeleted.map(async (item: Employee, index: number) => {
@@ -69,6 +73,8 @@ function ChannelNameSection({
       });
 
     await deleteDoc(doc(database, "Users", urlParams, "Channels", urlParams12));
+    // setUrlParams1("");
+    router.push(`/channels/${urlParams}`);
   }
   useEffect(() => {
     setSecondParam(urlParams12);

@@ -66,7 +66,7 @@ function SecondbarServer({
   //     }),
   //   []
   // );
-  // console.log(urlParams.length);
+  // console.log(channelNameState);
 
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
   useEffect(() => {
@@ -95,7 +95,7 @@ function SecondbarServer({
       setUrlParams1("");
       setUrlParams("");
     }
-  }, [database, urlParams]);
+  }, [urlParams, database]);
 
   async function addChannelName() {
     const channelName = prompt("Give your channel a name");

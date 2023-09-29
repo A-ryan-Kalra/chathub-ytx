@@ -148,7 +148,6 @@ const Nav = () => {
               <button
                 type="button"
                 className="bg-white px-3 py-2 hover:drop-shadow-xl shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
-                onClick={() => signOut(auth)}
               >
                 Open Discord
               </button>

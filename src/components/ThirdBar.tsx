@@ -3,6 +3,7 @@ import React, {
   FormEventHandler,
   MouseEvent,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import { Icon } from "@iconify/react";
@@ -60,6 +61,7 @@ function ThirdBar({
   const [isClient, setIsClient] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (Object.keys(channelNameState).length !== 0) {
@@ -73,12 +75,13 @@ function ThirdBar({
         }
       });
     } else {
-      setChannelNameState([]);
+      setChannelNameState(channelNameState);
+
       setChannelsaved([]);
       setChannel("");
     }
     setName(session?.user?.displayName.split(" ")[0]);
-  }, [urlParams1, urlParams]);
+  }, [urlParams1, urlParams, database]);
 
   const [name, setName] = useState<string>("");
 
@@ -88,7 +91,7 @@ function ThirdBar({
       router.push("/channels/@me");
     }
   });
-  // console.log(user);
+  // console.log(input);
   useEffect(() => {
     if (urlParams1 !== "") {
       onSnapshot(
@@ -109,6 +112,7 @@ function ThirdBar({
           snapshot.docs.map((i) => {
             arr.push({ ...i.data() });
           });
+          // console.log(Object.keys(arr).length);
 
           setUser(arr || []);
           setUserDeleted(arr || []);
@@ -295,7 +299,7 @@ function ThirdBar({
           value={input}
           className="outline-none text-white text-[16px] placeholder:text-[16px]  p-2 bg-[#383A40] w-full h-10 rounded-l-lg"
           placeholder={`${
-            channelSaved?.channelName
+            isClient && channelSaved?.channelName
               ? "Message #" + channelSaved?.channelName || ""
               : "Welcome to The Great Wall of Poof"
           }`}
@@ -316,6 +320,7 @@ function ThirdBar({
           </button>
         </div>
       </form>
+      <div ref={ref} className=""></div>
     </div>
   );
 }

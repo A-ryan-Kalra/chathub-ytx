@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Employee } from "../../Types";
 import { database } from "../../firebaseConfig";
 import { sessionState, setName1 } from "../../atoms/modalAtoms";
@@ -34,8 +34,9 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
 
   const [disappear, setDissappear] = useState<boolean>(true);
   const [disappear1, setDissappear1] = useState<boolean>(true);
-  console.log(user);
-  console.log(session.user.uid);
+  // console.log(user);
+  // console.log(session.user.uid);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -47,7 +48,14 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
       return () => clearInterval(timer);
     }
   }, [user]);
-
+  useEffect(() => {
+    if (Object.keys(user).length) {
+      ref.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+      });
+    }
+  }, [user]);
   useEffect(() => {
     if (urlParams1 === "") {
       const timer = setInterval(() => {
@@ -60,18 +68,17 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
   const time = moment().calendar();
 
   async function deleteChannel() {
-    Object.keys(user).length !== 0 &&
-      (await deleteDoc(
-        doc(
-          database,
-          "Users",
-          urlParams,
-          "Channels",
-          urlParams1,
-          "Comments",
-          user?.uid
-        )
-      ));
+    await deleteDoc(
+      doc(
+        database,
+        "Users",
+        urlParams,
+        "Channels",
+        urlParams1,
+        "Comments",
+        user?.uid
+      )
+    );
   }
   return (
     <div className="">
@@ -96,6 +103,7 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
       {disappear && (
         <div
           className={` flex justify-between hover:bg-[#2A2D30] p-1 relative py-3 items-center `}
+          ref={ref}
         >
           <div className="flex items-center justify-center">
             {isClient && (
@@ -137,8 +145,8 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
               </div>
             )}
           </div>
-          <div className="flex items-center p-2 rounded-full hover:bg-[#4a2b2b] cursor-pointer">
-            {session?.user?.uid === user?.uniqueKey && isClient && (
+          {session?.user?.uid === user?.uniqueKey && isClient && (
+            <div className="flex items-center p-2 rounded-full hover:bg-[#4a2b2b] cursor-pointer">
               <Icon
                 onClick={deleteChannel}
                 icon="bi:trash-fill"
@@ -149,8 +157,8 @@ function ChatSection({ channelSaved, user, urlParams1, urlParams }: Employee) {
               active:scale-75`}
                 width={21}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
       )}
     </div>
