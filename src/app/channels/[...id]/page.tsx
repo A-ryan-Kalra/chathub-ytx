@@ -7,6 +7,7 @@ import React, {
   MouseEventHandler,
   RefObject,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -133,7 +134,7 @@ function page({ params }: { params: Employee }) {
     const token: object = JSON.parse(sessionStorage.getItem("token") || "{}");
     let serPost: object = JSON.parse(sessionStorage.getItem("post") || "{}");
 
-    setPost(serPost || {});
+    // setPost(serPost || {});
 
     setSession(token);
     if (Object.keys(token).length === 0) {
@@ -154,22 +155,19 @@ function page({ params }: { params: Employee }) {
   const [channelNameState, setChannelNameState] =
     useRecoilState<Employee[]>(channelName);
 
-  useEffect(
-    () =>
-      onSnapshot(
-        query(collection(database, "Users"), orderBy("timestamp", "desc")),
-        (snapshot) => {
-          let events: any = [];
-          snapshot.forEach((doc) => {
-            events.push({ ...doc.data() });
-          });
-          setPost(events);
-          sessionStorage.setItem("post", JSON.stringify(events));
-        }
-      ),
-
-    [database]
-  );
+  useEffect(() => {
+    onSnapshot(
+      query(collection(database, "Users"), orderBy("timestamp", "desc")),
+      (snapshot) => {
+        let events: any = [];
+        snapshot.forEach((doc) => {
+          events.push({ ...doc.data() });
+        });
+        setPost(events);
+        sessionStorage.setItem("post", JSON.stringify(events));
+      }
+    );
+  }, [database]);
   const [isTrue, setTrue] = useState<boolean>(false);
   return (
     <div className="min-h-screen flex fixed inset-0">
@@ -412,7 +410,12 @@ function page({ params }: { params: Employee }) {
       {params !== undefined && params?.id[0] === "%40me" ? (
         <Me urlParams={urlParams} />
       ) : (
-        <ThirdBar urlParams1={urlParams1} post={post} urlParams={urlParams} />
+        <ThirdBar
+          urlParams1={urlParams1}
+          post={post}
+          params={params}
+          urlParams={urlParams}
+        />
       )}
     </div>
   );

@@ -18,6 +18,10 @@ export const screenState = atom({
   key: "screenState",
   default: true,
 });
+export const setId11 = atom({
+  key: "setId11",
+  default: "",
+});
 export const setName1 = atom({
   key: "setName1",
   default: "",

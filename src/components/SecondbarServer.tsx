@@ -99,7 +99,7 @@ function SecondbarServer({
 
   async function addChannelName() {
     const channelName = prompt("Give your channel a name");
-
+    // console.log("asdas");
     if (channelName) {
       try {
         const docRef = await addDoc(

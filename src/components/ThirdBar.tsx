@@ -17,16 +17,18 @@ import {
 } from "../../atoms/modalAtoms";
 import ChatSection from "./ChatSection";
 import {
+  Firestore,
   addDoc,
   collection,
   doc,
+  getFirestore,
   onSnapshot,
   orderBy,
   query,
   serverTimestamp,
   updateDoc,
 } from "firebase/firestore";
-import { database } from "../../firebaseConfig";
+import { auth, database } from "../../firebaseConfig";
 import { error } from "console";
 import moment from "moment";
 import { useRouter } from "next/navigation";
@@ -37,7 +39,9 @@ function ThirdBar({
   urlParams1,
   post,
   urlParams,
+  params,
 }: {
+  params: Employee;
   urlParams1: string;
   urlParams: string;
   post: Employee;
@@ -82,17 +86,18 @@ function ThirdBar({
     }
     setName(session?.user?.displayName.split(" ")[0]);
   }, [urlParams1, urlParams, database]);
-
+  // console.log(database.type);
   const [name, setName] = useState<string>("");
+
+  // useEffect(() => {
+  //   if (Object.keys(post).length === 0 && urlParams === "") {
+  //     router.push("/channels/@me");
+  //   }
+  // }, [database]);
 
   useEffect(() => {
     setIsClient(true);
-    if (Object.keys(post).length === 0) {
-      router.push("/channels/@me");
-    }
-  });
-  // console.log(input);
-  useEffect(() => {
+
     if (urlParams1 !== "") {
       onSnapshot(
         query(
