@@ -14,6 +14,7 @@ import {
 import { database } from "../../firebaseConfig";
 import { useRecoilState } from "recoil";
 import {
+  channelName,
   screenState,
   setParam,
   setParam1,
@@ -32,7 +33,7 @@ function ChannelNameSection({
 }: {
   channel: Employee;
   id: String;
-  channelNameState: Employee;
+  channelNameState: Employee[];
   urlParams12: string;
 }) {
   const [channelState, setChannelState] = useState(false);
@@ -48,12 +49,15 @@ function ChannelNameSection({
 
   const [channelNameState1, setChannelNameState1] = useState<Employee>([]);
   const [urlParams1, setUrlParams1] = useRecoilState<string>(setParam1 || "");
-
+  const [channelNameState2, setChannelNameState] = useRecoilState<Employee[]>(
+    channelName || []
+  );
   useEffect(() => {
     setChannelState(channel.uid === urlParams12);
+    setChannelNameState(channelNameState);
   });
 
-  // console.log(channelNameState);
+  // console.log(channelNameState2);
   const router = useRouter();
 
   async function deleteChannel() {

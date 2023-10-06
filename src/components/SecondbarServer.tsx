@@ -81,6 +81,7 @@ function SecondbarServer({
             let events: any = [];
             snapshot.forEach((doc) => {
               events.push({ ...doc.data() });
+              // console.log("hello");
             });
             setChannelNameState(events);
           } else {

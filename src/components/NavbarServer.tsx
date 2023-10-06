@@ -35,6 +35,11 @@ function NavbarServer({ post, id, urlParams }: Employee) {
     setId1(id);
   });
 
+  // setTimeout(() => {
+  //   const id01: string = id;
+  //   console.log(post.length!);
+  // }, 100);
+
   // let sum = 0;
 
   // const cal = (n: number) => {

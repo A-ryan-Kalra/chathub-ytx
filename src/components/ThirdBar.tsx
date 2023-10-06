@@ -67,6 +67,8 @@ function ThirdBar({
   const router = useRouter();
   const ref = useRef<HTMLDivElement>(null);
 
+  // console.log(channelNameState);
+  // console.log(urlParams1);
   useEffect(() => {
     if (Object.keys(channelNameState).length !== 0) {
       channelNameState.forEach((i) => {
@@ -85,7 +87,7 @@ function ThirdBar({
       setChannel("");
     }
     setName(session?.user?.displayName.split(" ")[0]);
-  }, [urlParams1, urlParams, database]);
+  }, [urlParams1, urlParams, database, channelNameState]);
   // console.log(database.type);
   const [name, setName] = useState<string>("");
 
@@ -94,6 +96,10 @@ function ThirdBar({
   //     router.push("/channels/@me");
   //   }
   // }, [database]);
+  // setTimeout(() => {
+
+  //   console.log(urlParams.length);
+  // }, 6000);
 
   useEffect(() => {
     setIsClient(true);

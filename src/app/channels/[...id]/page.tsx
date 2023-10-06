@@ -206,7 +206,7 @@ function page({ params }: { params: Employee }) {
                 key={index}
                 post={item || []}
                 urlParams={urlParams}
-                id={item?.uid || ""}
+                id={item?.uid ? item?.uid : ""}
               />
             )
             // console.log(item)
