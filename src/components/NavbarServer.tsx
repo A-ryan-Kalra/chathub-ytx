@@ -33,6 +33,7 @@ function NavbarServer({ post, id, urlParams }: Employee) {
     setIsClient(true);
     setUrl(location[2]);
     setId1(id);
+    check();
   });
 
   // setTimeout(() => {
@@ -74,16 +75,32 @@ function NavbarServer({ post, id, urlParams }: Employee) {
   // console.time();
   // console.log(cal(5));
   // console.timeEnd();
-  useEffect(() => {
-    if (id1 === urlParams) {
-      const timer = setTimeout(() => {
-        setSelectedServer(true);
-      }, 100);
-      return () => clearTimeout(timer);
-    } else {
-      setSelectedServer(false);
-    }
-  });
+  // useEffect(() => {
+  //   if (id1 === urlParams) {
+  //     const timer = setTimeout(() => {
+  //       setSelectedServer(true);
+  //     }, 100);
+  //     return () => clearTimeout(timer);
+  //   } else {
+  //     setSelectedServer(false);
+  //   }
+  // });
+  const [showMessage, setShowMessage] = useState(false);
+
+  // useEffect(() => {
+  //   // Use setTimeout to delay showing a message
+  //   const timeoutId = setTimeout(() => {
+  //     setShowMessage(true);
+  //   }, 500); // Delay for 2 seconds (2000 milliseconds)
+
+  //   // Clear the timeout if the component unmounts to avoid memory leaks
+  //   return () => clearTimeout(timeoutId);
+  // }, []); // Empty dependency array to ensure the effect runs only once
+
+  const check = () => {
+    const timer = setTimeout(() => {}, 500);
+    return () => clearTimeout(timer);
+  };
 
   let location: Employee = window.location.pathname.split("/");
 
@@ -93,9 +110,9 @@ function NavbarServer({ post, id, urlParams }: Employee) {
         <div className=" w-full active:scale-y-90 cursor-pointer flex  mx-auto h-[50px] group">
           <div className="relative  h-full  w-1 flex  mr-2 ">
             <div
-              className={`bg-white h-full duration-[100] transition-all transform ease-in origin-center scale-y-[16%] ${
-                selectedServer
-                  ? "scale-y-[80%] duration-[100]  transition-all transform ease-in"
+              className={`bg-white h-full duration-[200ms] transition-all transform ease-in origin-center scale-y-[16%] ${
+                id1 === urlParams
+                  ? "scale-y-[80%] duration-[200ms]  transition-all transform ease-in"
                   : "group-hover:scale-y-[40%]"
               } my-auto rounded-r-[100%] w-2`}
             ></div>
