@@ -143,19 +143,6 @@ export const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex justify-between items-center pb-9 gap-3 p-1">
-          <img
-            src="/discord-logo-white.png"
-            alt=""
-            className="w-36 object-contain h-20"
-          />
-          <button
-            type="button"
-            className="text-white bg-[#5965F3] px-3 py-2 text-sm rounded-full shadow-md hover:bg-[#6b75e5]"
-          >
-            Download
-          </button>
-        </div>
       </div>
     </div>
   );

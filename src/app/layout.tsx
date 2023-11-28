@@ -7,7 +7,7 @@ import RecoilContextProvider from "../../atoms/modalAtoms";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Discord-clone",
+  title: "Chat Hub",
   description: "Let's create Discord-clone",
 };
 

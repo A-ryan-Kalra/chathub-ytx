@@ -104,21 +104,20 @@ const Nav = () => {
 
   return (
     <nav className="w-full relative md:max-lg:px-9 px-4 bg-[#465EEC]">
-      <div className="w-full p-1 max-w-[1200px] mx-auto h-20 px-3 flex justify-between items-center">
-        <Link
-          href={"/"}
-          className="relative w-[120px] h-10 focus-visible:ring-[3px] focus-visible:ring-[#41B0F5] rounded-lg  outline-none "
+      <div className="w-full p-1 max-w-[1100px] mx-auto h-20 px-3 flex justify-between items-center">
+        <div
+          className="relative w-[190px] h-[190px] focus-visible:ring-[3px] focus-visible:ring-[#41B0F5] rounded-full  outline-none "
           tabIndex={0}
         >
           <Image
-            src={"/discord-logo-white.png"}
-            className="object-contain"
+            src={"/ChatHub1new.png"}
+            className="rounded-full object-contain outline-none border-none"
             // width={60}
             // height={60}
             fill
             alt="logo"
           />
-        </Link>
+        </div>
         <ul className="hidden lg:flex items-center text-white font-semibold gap-10 text-sm">
           <Link href={"/"}>
             <li className="hover:underline">Download</li>

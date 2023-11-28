@@ -33,7 +33,6 @@ function NavbarServer({ post, id, urlParams }: Employee) {
     setIsClient(true);
     setUrl(location[2]);
     setId1(id);
-    check();
   });
 
   // setTimeout(() => {
@@ -85,7 +84,7 @@ function NavbarServer({ post, id, urlParams }: Employee) {
   //     setSelectedServer(false);
   //   }
   // });
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessage, setShowMessage] = useState(true);
 
   // useEffect(() => {
   //   // Use setTimeout to delay showing a message
@@ -97,10 +96,18 @@ function NavbarServer({ post, id, urlParams }: Employee) {
   //   return () => clearTimeout(timeoutId);
   // }, []); // Empty dependency array to ensure the effect runs only once
 
-  const check = () => {
-    const timer = setTimeout(() => {}, 500);
-    return () => clearTimeout(timer);
-  };
+  // const check = () => {
+  //   if (id1 === urlParams) {
+  //     const timer = setTimeout(() => {
+  //       return true;
+  //       // setShowMessage(true);
+  //     }, 500);
+  //     return () => clearTimeout(timer);
+  //   } else {
+  //     // setShowMessage(false);
+  //     return false;
+  //   }
+  // };
 
   let location: Employee = window.location.pathname.split("/");
 

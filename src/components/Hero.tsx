@@ -33,13 +33,13 @@ const Hero = () => {
             >
               IMAGINE A PLACE...
             </h1>
-            <p className="text-white text-left lg:text-center mt-6 ">
+            <p className="text-white text-lg text-left lg:text-center mt-6 ">
               ...where you can belong to a school club, a gaming group, or a
               worldwide art community. Where just you and a handful of friends
               can spend time together. A place that makes it easy to talk every
               day and hang out more often.
             </p>
-            <div className="flex mt-5 w-[80%]  lg:mx-auto flex-col sm:flex-row lg:flex-row md:flex-col justify-around items-start   gap-5 ">
+            {/* <div className="flex mt-5 w-[80%]  lg:mx-auto flex-col sm:flex-row lg:flex-row md:flex-col justify-around items-start   gap-5 ">
               <button
                 type="button"
                 className="text-black shadow-md hover:text-[#5865F2] hover:shadow-xl bg-white md:px-6 px-3 py-3  md:py-3 rounded-full"
@@ -58,7 +58,7 @@ const Hero = () => {
               >
                 Open Discord in your browser
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ const Hero = () => {
             Ready to start your journey?
           </h1>
           <div className=" w-full sm:items-center sm:justify-center flex ">
-            <button
+            {/* <button
               type="button"
               className=" shadow-md hover:bg-[#7d8ad7] bg-[#465FEC] hover:shadow-xl text-white md:px-6 px-3 py-3  md:py-3 rounded-full"
             >
@@ -164,7 +164,7 @@ const Hero = () => {
               <span className="text-[15px]  lg:text-[18px]">
                 Download for Linux
               </span>
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
