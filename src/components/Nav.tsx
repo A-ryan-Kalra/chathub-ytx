@@ -199,12 +199,10 @@ const Nav = () => {
                   leaveTo="opacity-0 scale-95 scale-x-0 "
                 >
                   <Dialog.Panel className="w-full min-h-screen max-w-[330px] transform overflow-hidden rounded-l-lg bg-white p-6 text-left align-middle shadow-xl transition-all">
-                    <div className="font-medium max-w-[230px] h-[50px]  border-b w-full ">
-                      <img
-                        src={"/discord-logo.svg"}
-                        className="object-contain "
-                        alt="logo"
-                      />
+                    <div className="font-medium  max-w-[230px] h-[50px]  border-b w-full ">
+                      <h1 className="text-2xl tracking-wider font-bold text-left">
+                        chatHub
+                      </h1>
                       <div className="absolute active:scale-95 hover:bg-slate-400/20 flex items-center rounded-full top-[23px] right-9">
                         <button
                           type="button"
