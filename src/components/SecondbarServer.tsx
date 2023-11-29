@@ -137,7 +137,7 @@ function SecondbarServer({
 
   const router = useRouter();
   return (
-    <div>
+    <div className="">
       {isClient &&
         Object.keys(post).length !== 0 &&
         urlParams === post?.uid && (

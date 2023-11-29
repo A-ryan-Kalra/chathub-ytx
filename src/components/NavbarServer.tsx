@@ -38,7 +38,7 @@ function NavbarServer({ post, id, urlParams }: Employee) {
   let location: Employee = window.location.pathname.split("/");
 
   return (
-    <Link href={`/channels/${post.uid}`} className="relative group">
+    <Link href={`/channels/${post.uid}`} className=" relative group">
       {isClient && Object.keys(post).length !== 0 && (
         <div className=" w-full active:scale-y-90 cursor-pointer flex  mx-auto h-[50px] group">
           <div className="relative  h-full  w-1 flex  mr-2 ">

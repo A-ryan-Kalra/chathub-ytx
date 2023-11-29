@@ -103,7 +103,7 @@ const Nav = () => {
   }
 
   return (
-    <nav className="w-full relative md:max-lg:px-9 px-4 bg-[#465EEC]">
+    <nav className="w-full relative md:max-lg:px-9 px-4 bg-gradient-to-tr from-fuchsia-400 to-yellow-300">
       <div className="w-full p-1 max-w-[1100px] mx-auto h-20 px-3 flex justify-between items-center">
         <div
           className="relative w-[190px] h-[190px] focus-visible:ring-[3px] focus-visible:ring-[#41B0F5] rounded-full  outline-none "
@@ -118,7 +118,7 @@ const Nav = () => {
             alt="logo"
           />
         </div>
-        <ul className="hidden lg:flex items-center text-white font-semibold gap-10 text-sm">
+        {/* <ul className="hidden lg:flex items-center text-white font-semibold gap-10 text-sm">
           <Link href={"/"}>
             <li className="hover:underline">Download</li>
           </Link>
@@ -140,21 +140,21 @@ const Nav = () => {
           <Link href={"/"}>
             <li className="hover:underline">Carrers</li>
           </Link>
-        </ul>
-        <div className="items-center flex  ">
+        </ul> */}
+        <div className="items-center flex hover:drop-shadow-xl">
           {Object.keys(session).length != 0 ? (
             <Link href={"/channels/@me"}>
               <button
                 type="button"
-                className="bg-white px-3 py-2 hover:drop-shadow-xl shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
+                className="bg-white px-3 py-2  shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
               >
-                Open Discord
+                Open ChatHub
               </button>
             </Link>
           ) : (
             <button
               type="button"
-              className="bg-white px-3 py-2 hover:drop-shadow-xl shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
+              className="bg-white px-3 py-2  shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
               onClick={singInWithGoogle}
             >
               Login

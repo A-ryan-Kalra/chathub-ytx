@@ -9,7 +9,7 @@ const noto = Bungee({ subsets: ["latin"], weight: "400" });
 const Hero = () => {
   return (
     <div className="overflow-hidden ">
-      <div className="relative w-full    bg-[#465EEC] ">
+      <div className="relative w-full bg-gradient-to-br from-fuchsia-400 to-yellow-300 ">
         <div className=" w-[1520px] pt-[200px]  lg:max-h-[calc(100vh-200px)] md:max-lg:min-h-[calc(100vh-400px)] mx-auto flex justify-between items-end">
           <div className="relative max-sm:top-[90px] max-md:top-6  -left-[70px] xl:-left-[300px] lg:-left-[420px] bottom-0 w-[400px]  md:hidden xl:top-0 lg:inline h-[400px] sm:w-[550px] sm:h-[340px] lg:w-[650px]  ">
             <Image
@@ -64,7 +64,7 @@ const Hero = () => {
       </div>
       {/* lg:max-h-[calc(100vh-200px)] md:max-lg:min-h-[calc(100vh-400px)] */}
       {/* lg:min-h-[calc(100vh-10vh)] max-md:min-h-[calc(100vh-30vh)] */}
-      <div className="  2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
+      <div className=" bg-gradient-to-tr border-t-zinc-300 from-fuchsia-400 to-yellow-300 2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
         <div className="relative pt-[60px] w-full p-5 max-w-[1220px] mx-auto flex md:flex-row flex-col   items-center justify-around">
           <img
             src="/chat1.svg"
@@ -76,14 +76,14 @@ const Hero = () => {
               Create an invite-only place where you belong
             </h1>
             <p className="text-[14px] leading-7 lg:text-[18px] lg:leading-8 font-light">
-              Discord servers are organized into topic-based channels where you
+              ChatHub servers are organized into topic-based channels where you
               can collaborate, share, and just talk about your day without
               clogging up a group chat.
             </p>
           </div>
         </div>
       </div>
-      <div className="bg-[#F7F6F7] pt-10 lg:max-h-[calc(100vh)] md:max-lg:min-h-[calc(100vh-400px)] flex max-sm:min-h-[60vh] justify-center items-center">
+      <div className="bg-gradient-to-br from-fuchsia-400 to-yellow-300 pt-10 lg:max-h-[calc(100vh)] md:max-lg:min-h-[calc(100vh-400px)] flex max-sm:min-h-[60vh] justify-center items-center">
         <div className="relative  w-full p-5 max-w-[1220px] mx-auto flex max-md:flex-col-reverse md:flex-row flex-col   items-center justify-around">
           <div className="flex flex-col pt-[60px] max-w-[550px]  md:max-w-[400px] gap-5">
             <h1 className="text-[30px] xl:text-[40px]  font-bold">
@@ -102,7 +102,7 @@ const Hero = () => {
           />
         </div>
       </div>
-      <div className="  2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
+      <div className="bg-gradient-to-tr from-fuchsia-400 to-yellow-300  2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
         <div className="relative  w-full p-5 max-w-[1220px] mx-auto flex md:flex-row flex-col   items-center justify-around">
           <img
             src="/chat3.svg"
@@ -122,7 +122,7 @@ const Hero = () => {
         </div>
       </div>
       {/* lg:max-h-[calc(100vh)] md:max-lg:min-h-[calc(100vh-400px)] */}
-      <div className="bg-[#F7F6F7] pt-10  flex max-sm:min-h-[60vh] justify-center items-center">
+      <div className="bg-gradient-to-br from-fuchsia-400 to-yellow-300 pt-10  flex max-sm:min-h-[60vh] justify-center items-center">
         <div className="relative  w-full p-5 max-w-[1220px] mx-auto flex  flex-col items-center pt-[60px] justify-around">
           <div className="flex  flex-col  max-w-[950px]   gap-5">
             <h1
@@ -144,7 +144,7 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className=" bg-[#F7F6F7]   flex items-center justify-center">
+      <div className=" bg-gradient-to-tr from-fuchsia-400 to-yellow-300 flex items-center justify-center">
         <div className=" max-md:p-5 flex flex-col items-center gap-5 pb-20">
           <div className="max-md:p-2 translate-y-10">
             <img src="/stars.svg" alt="glitter" />
