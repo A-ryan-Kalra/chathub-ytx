@@ -152,20 +152,7 @@ const Hero = () => {
           <h1 className="text-left sm:text-left text-[30px] font-bold ">
             Ready to start your journey?
           </h1>
-          <div className=" w-full sm:items-center sm:justify-center flex ">
-            {/* <button
-              type="button"
-              className=" shadow-md hover:bg-[#7d8ad7] bg-[#465FEC] hover:shadow-xl text-white md:px-6 px-3 py-3  md:py-3 rounded-full"
-            >
-              <Icon
-                className="inline-block w-6 h-6 mr-1"
-                icon="material-symbols:download"
-              />
-              <span className="text-[15px]  lg:text-[18px]">
-                Download for Linux
-              </span>
-            </button> */}
-          </div>
+         
         </div>
       </div>
     </div>
