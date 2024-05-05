@@ -157,7 +157,7 @@ const Nav = () => {
               className="bg-white px-3 py-2  shadow-sm  hover:text-[#5865F2]  rounded-full text-sm"
               onClick={singInWithGoogle}
             >
-              Login
+              Sign in
             </button>
           )}
 
