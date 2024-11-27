@@ -52,7 +52,7 @@ export default function Home() {
   // console.log(post);
   return (
     <main className=" max-h-screen overflow-y-auto">
-      <div className=" max-h-screen overflow-y-auto">
+      <div className=" max-h-screen overflow-y-auto overflow-hidden">
         <Nav />
         <Hero />
         <Footer />

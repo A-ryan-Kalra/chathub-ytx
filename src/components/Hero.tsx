@@ -6,21 +6,52 @@ import { Icon } from "@iconify/react";
 
 const alfa = Shojumaru({ subsets: ["latin"], weight: "400" });
 const noto = Bungee({ subsets: ["latin"], weight: "400" });
+
 const Hero = () => {
+  const imgLeft = document.querySelectorAll(".translate-left");
+  const imgRight = document.querySelectorAll(".translate-right");
+  const rotate = document.querySelector(".rotate");
+  const popUpOnce = document.querySelector(".popUpOnce");
+  // console.log(imgLeft);
+  if (imgLeft && imgRight && rotate && popUpOnce) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // console.log(entry.target.classList.contains("animate"));
+
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+            observer.unobserve(entry.target);
+          }
+          //  else {
+          //   entry.target.classList.remove("animate");
+          // }
+        });
+      },
+      { threshold: 0.8 }
+    );
+    imgLeft.forEach((img) => observer.observe(img));
+    imgRight.forEach((img) => observer.observe(img));
+    observer.observe(rotate);
+    observer.observe(popUpOnce);
+  }
+
   return (
-    <div className="overflow-hidden ">
+    <div className="overflow-hidde">
       <div className="relative w-full bg-gradient-to-br from-fuchsia-400 to-yellow-300 ">
-        <div className=" w-[1520px] pt-[200px]  lg:max-h-[calc(100vh-200px)] md:max-lg:min-h-[calc(100vh-400px)] mx-auto flex justify-between items-end">
-          <div className="relative max-sm:top-[90px] max-md:top-6  -left-[70px] xl:-left-[300px] lg:-left-[420px] bottom-0 w-[400px]  md:hidden xl:top-0 lg:inline h-[400px] sm:w-[550px] sm:h-[340px] lg:w-[650px]  ">
+        <div className="pb-20 w-[1520px] pt-[200px]  lg:max-h-[calc(100vh-200px)] md:max-lg:min-h-[calc(100vh-400px)] mx-auto flex justify-between items-end">
+          <div className="relative  max-sm:top-[90px] max-md:top-6  -left-[70px] xl:-left-[300px] lg:-left-[420px] bottom-0 w-[400px]  md:hidden xl:top-0 lg:inline h-[400px] sm:w-[550px] sm:h-[340px] lg:w-[650px]  ">
             <Image
+              draggable="false"
               src={"/discord5.svg"}
               fill
               className=" lg:inline bg-contain cursor-auto"
               alt="hero-logo-1"
             />
           </div>
-          <div className="relative xl:-right-[250px] bottom-0 w-[650px] md:max-lg:left-[300px]  md:bottom-0 lg:max-xl:left-[50px] h-[340px] ">
+          <div className="relative xl:-right-[200px] bottom-0 w-[650px] md:max-lg:left-[300px]  md:bottom-0 lg:max-xl:left-[50px] h-[340px] ">
             <Image
+              draggable="false"
               src={"/discord3.svg"}
               fill
               className="bg-contain"
@@ -64,14 +95,15 @@ const Hero = () => {
       </div>
       {/* lg:max-h-[calc(100vh-200px)] md:max-lg:min-h-[calc(100vh-400px)] */}
       {/* lg:min-h-[calc(100vh-10vh)] max-md:min-h-[calc(100vh-30vh)] */}
-      <div className=" bg-gradient-to-tr border-t-zinc-300 from-fuchsia-400 to-yellow-300 2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
-        <div className="relative pt-[60px] w-full p-5 max-w-[1220px] mx-auto flex md:flex-row flex-col   items-center justify-around">
+      <div className="h-[70vh]  bg-gradient-to-tr border-t-zinc-300 from-fuchsia-400 to-yellow-300 2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
+        <div className="relative pt-[60px] w-full p-5 max-w-[1220px] mx-auto flex md:flex-row flex-col items-center justify-around">
           <img
+            draggable="false"
             src="/chat1.svg"
-            className="lg:w-[628px] md:w-[440px] md:h-[350px] lg:h-[480px]"
+            className="translate-left lg:w-[628px] md:w-[440px] md:h-[350px] lg:h-[480px]"
             alt=""
           />
-          <div className="flex flex-col max-w-[550px]  md:max-w-[400px] gap-5">
+          <div className="flex flex-col max-w-[550px] translate-right md:max-w-[400px] gap-5">
             <h1 className="text-[30px] xl:text-[40px]  font-bold">
               Create an invite-only place where you belong
             </h1>
@@ -83,9 +115,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      <div className="bg-gradient-to-br from-fuchsia-400 to-yellow-300 pt-10 lg:max-h-[calc(100vh)] md:max-lg:min-h-[calc(100vh-400px)] flex max-sm:min-h-[60vh] justify-center items-center">
+      <div className="h-[70vh] pb-10 bg-gradient-to-br from-fuchsia-400 to-yellow-300 pt-10 lg:max-h-[calc(100vh)] md:max-lg:min-h-[calc(100vh-400px)] flex max-sm:min-h-[60vh] justify-center items-center">
         <div className="relative  w-full p-5 max-w-[1220px] mx-auto flex max-md:flex-col-reverse md:flex-row flex-col   items-center justify-around">
-          <div className="flex flex-col pt-[60px] max-w-[550px]  md:max-w-[400px] gap-5">
+          <div className="popUpOnce flex flex-col pt-[60px] max-w-[550px]  md:max-w-[400px] gap-5">
             <h1 className="text-[30px] xl:text-[40px]  font-bold">
               Where hanging out is easy
             </h1>
@@ -96,20 +128,22 @@ const Hero = () => {
             </p>
           </div>
           <img
+            draggable="false"
             src="/chat2.svg"
-            className="lg:w-[628px] md:w-[440px] md:h-[350px] lg:h-[480px]"
+            className="rotate lg:w-[628px] md:w-[440px] md:h-[350px] lg:h-[480px]"
             alt=""
           />
         </div>
       </div>
-      <div className="bg-gradient-to-tr from-fuchsia-400 to-yellow-300  2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
+      <div className="h-[60vh] bg-gradient-to-tr from-fuchsia-400 to-yellow-300  2xl:max-h-[calc(100vh-100px)] md:max-xl:min-h-[calc(100vh-200px)] max-sm:min-h-[60vh] flex justify-center items-center">
         <div className="relative  w-full p-5 max-w-[1220px] mx-auto flex md:flex-row flex-col   items-center justify-around">
           <img
+            draggable="false"
             src="/chat3.svg"
-            className="lg:w-[628px] md:w-[440px] md:h-[350px] lg:h-[480px]"
+            className="translate-left lg:w-[628px] md:w-[440px] md:h-[350px] lg:h-[480px]"
             alt=""
           />
-          <div className="flex flex-col max-w-[550px]  md:max-w-[400px] gap-5">
+          <div className="translate-right flex flex-col max-w-[550px]  md:max-w-[400px] gap-5">
             <h1 className="text-[30px] xl:text-[40px]  font-bold">
               From few to a fandom
             </h1>
@@ -122,8 +156,8 @@ const Hero = () => {
         </div>
       </div>
       {/* lg:max-h-[calc(100vh)] md:max-lg:min-h-[calc(100vh-400px)] */}
-      <div className="bg-gradient-to-br from-fuchsia-400 to-yellow-300 pt-10  flex max-sm:min-h-[60vh] justify-center items-center">
-        <div className="relative  w-full p-5 max-w-[1220px] mx-auto flex  flex-col items-center pt-[60px] justify-around">
+      <div className="overflow-visible bg-gradient-to-br from-fuchsia-400 to-yellow-300 pt-10  flex max-sm:min-h-[60vh] justify-center items-center">
+        <div className="popUp relative  w-full p-5 max-w-[1220px] mx-auto flex  flex-col items-center pt-[60px] justify-around">
           <div className="flex  flex-col  max-w-[950px]   gap-5">
             <h1
               className={` text-[40px] text-center xl:text-[45px] tracking-wider max-md:text-[25px] font-bold max-md:text-left   ${noto.className}`}
@@ -137,6 +171,7 @@ const Hero = () => {
             </p>
           </div>
           <img
+            draggable="false"
             src="/callerId.svg"
             className="lg:w-[1180px] md:w-[940px] md:h-[650px] lg:h-[715px]"
             alt=""
@@ -147,12 +182,11 @@ const Hero = () => {
       <div className=" bg-gradient-to-tr from-fuchsia-400 to-yellow-300 flex items-center justify-center">
         <div className=" max-md:p-5 flex flex-col items-center gap-5 pb-20">
           <div className="max-md:p-2 translate-y-10">
-            <img src="/stars.svg" alt="glitter" />
+            <img draggable="false" src="/stars.svg" alt="glitter" />
           </div>
           <h1 className="text-left sm:text-left text-[30px] font-bold ">
             Ready to start your journey?
           </h1>
-         
         </div>
       </div>
     </div>

@@ -25,3 +25,86 @@ body {
     )
     rgb(var(--background-start-rgb)); */
 }
+
+.translate-left,
+.translate-right,
+.rotate,
+.showPopUp {
+  opacity: 0;
+}
+
+.translate-left.animate {
+  animation: translateLeft 2s linear forwards;
+}
+.translate-right.animate {
+  animation: translateRight 2s linear forwards;
+}
+.rotate.animate {
+  animation: rotateAnimate 1.6s forwards;
+}
+
+@keyframes rotateAnimate {
+  from {
+    transform: translateX(220rem);
+
+    /* transform: scale(0.2); */
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+    /* transform: scale(1); */
+  }
+}
+@keyframes translateLeft {
+  from {
+    transform: translateX(-20rem);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes translateRight {
+  from {
+    transform: translateX(20rem);
+    opacity: 0.4;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.popUp {
+  animation: showPopUp both;
+  animation-timeline: view(70% 40%);
+}
+@keyframes showPopUp {
+  from {
+    transform: translateY(30rem) scale(0.4);
+
+    opacity: 0.2;
+  }
+  to {
+    transform: translateY(0rem) scale(1);
+
+    opacity: 1;
+  }
+}
+.popUpOnce {
+  animation: showPopUpOnce 5s ease-in-out;
+}
+@keyframes showPopUpOnce {
+  from {
+    transform: translateY(50rem) scale(0.2);
+
+    opacity: 0.2;
+  }
+  to {
+    transform: translateY(0rem) scale(1);
+
+    opacity: 1;
+  }
+}
