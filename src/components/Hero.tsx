@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
 import { Alfa_Slab_One, Shojumaru, Bungee } from "next/font/google";
 import { Icon } from "@iconify/react";
 
@@ -8,33 +8,35 @@ const alfa = Shojumaru({ subsets: ["latin"], weight: "400" });
 const noto = Bungee({ subsets: ["latin"], weight: "400" });
 
 const Hero = () => {
-  const imgLeft = document.querySelectorAll(".translate-left");
-  const imgRight = document.querySelectorAll(".translate-right");
-  const rotate = document.querySelector(".rotate");
-  const popUpOnce = document.querySelector(".popUpOnce");
-  // console.log(imgLeft);
-  if (imgLeft && imgRight && rotate && popUpOnce) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          // console.log(entry.target.classList.contains("animate"));
+  useEffect(() => {
+    const imgLeft = document.querySelectorAll(".translate-left");
+    const imgRight = document.querySelectorAll(".translate-right");
+    const rotate = document.querySelector(".rotate");
+    const popUpOnce = document.querySelector(".popUpOnce");
+    // console.log(imgLeft);
+    if (imgLeft && imgRight && rotate && popUpOnce) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            // console.log(entry.target.classList.contains("animate"));
 
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate");
-            observer.unobserve(entry.target);
-          }
-          //  else {
-          //   entry.target.classList.remove("animate");
-          // }
-        });
-      },
-      { threshold: 0.8 }
-    );
-    imgLeft.forEach((img) => observer.observe(img));
-    imgRight.forEach((img) => observer.observe(img));
-    observer.observe(rotate);
-    observer.observe(popUpOnce);
-  }
+            if (entry.isIntersecting) {
+              entry.target.classList.add("animate");
+              observer.unobserve(entry.target);
+            }
+            //  else {
+            //   entry.target.classList.remove("animate");
+            // }
+          });
+        },
+        { threshold: 0.8 }
+      );
+      imgLeft.forEach((img) => observer.observe(img));
+      imgRight.forEach((img) => observer.observe(img));
+      observer.observe(rotate);
+      observer.observe(popUpOnce);
+    }
+  }, []);
 
   return (
     <div className="overflow-hidde">
