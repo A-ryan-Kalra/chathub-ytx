@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { Alfa_Slab_One, Shojumaru, Bungee } from "next/font/google";
 import { Icon } from "@iconify/react";
+import Script from "next/script";
 
 const alfa = Shojumaru({ subsets: ["latin"], weight: "400" });
 const noto = Bungee({ subsets: ["latin"], weight: "400" });
@@ -40,6 +41,10 @@ const Hero = () => {
 
   return (
     <div className="overflow-hidde">
+      <Script
+        src="https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js"
+        strategy="afterInteractive"
+      />
       <div className="relative w-full bg-gradient-to-br from-fuchsia-400 to-yellow-300 ">
         <div className="pb-20 w-[1520px] pt-[200px]  lg:max-h-[calc(100vh-200px)] md:max-lg:min-h-[calc(100vh-400px)] mx-auto flex justify-between items-end">
           <div className="relative  max-sm:top-[90px] max-md:top-6  -left-[70px] xl:-left-[300px] lg:-left-[420px] bottom-0 w-[400px]  md:hidden xl:top-0 lg:inline h-[400px] sm:w-[550px] sm:h-[340px] lg:w-[650px]  ">
