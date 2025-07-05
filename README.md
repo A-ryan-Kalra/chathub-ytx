@@ -1,4 +1,4 @@
-<h3>Website is live and running at  <a href="https://chathub-git-main-a-ryan-kalra.vercel.app/">chatHub</a>
+<h3>Website is live and running at  <a href="https://chathub-ivye-aryankalras-projects.vercel.app/">chatHub</a>
 </h3>
 
 <h2>About</h2>
